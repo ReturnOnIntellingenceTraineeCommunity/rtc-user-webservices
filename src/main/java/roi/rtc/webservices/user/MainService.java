@@ -16,7 +16,7 @@ public class MainService extends Service<ConfigurationClass> {
 
     @Override
     public void initialize(Bootstrap<ConfigurationClass> bootstrap) {
-        bootstrap.setName("hello-world");
+        bootstrap.setName("hello-world");;
     }
 
     @Override
