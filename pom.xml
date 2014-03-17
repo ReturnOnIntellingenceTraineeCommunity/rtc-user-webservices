@@ -45,6 +45,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
@@ -152,6 +158,71 @@
                     </archive>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+                        <configuration>
+                            <controlDir>${project.basedir}/src/deb/control</controlDir>
+                            <dataSet>
+                                <data>
+                                    <src>${project.build.directory}/${project.build.finalName}.jar</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/opt/${project.artifactId}</prefix>
+                                        <user>${app.user}</user>
+                                        <group>${app.group}</group>
+                                    </mapper>
+                                </data>
+                                <data>
+                                    <src>${project.basedir}/${project.artifactId}.yml</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc</prefix>
+                                        <filemode>600</filemode>
+                                        <user>${app.user}</user>
+                                        <group>${app.group}</group>
+                                    </mapper>
+                                </data>
+                                <data>
+                                    <src>${project.basedir}/src/deb/init</src>
+                                    <type>directory</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc/init</prefix>
+                                        <filemode>755</filemode>
+                                        <user>${app.user}</user>
+                                        <group>${app.group}</group>
+                                    </mapper>
+                                </data>
+                                <data>
+                                    <type>template</type>
+                                    <paths>
+                                        <path>opt/${project.artifactId}</path>
+                                        <path>var/log/${project.artifactId}</path>
+                                    </paths>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <user>${app.user}</user>
+                                        <group>${app.group}</group>
+                                    </mapper>
+                                </data>
+                            </dataSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
 
 
         </plugins>
