@@ -1,6 +1,7 @@
 http:
   rootPath: /api/*
-  port:8078
-  admin port:8178
+  port: 8078
+  adminPort: 8178
+
 template: Hello, %s!
 defaultName: Stranger
