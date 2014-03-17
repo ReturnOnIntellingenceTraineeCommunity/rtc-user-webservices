@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -f /var/log/upstart/rtc-course-webservices.log ]; then
+    rm -f /var/log/upstart/rtc-course-webservices.log
+fi
+
+stop rtc-course-webservices
