@@ -4,7 +4,7 @@ Section: misc
 Priority: optional
 Architecture: all
 Maintainer: Chernichenko Bogdan <chernichenkobogdan@gmail.com>
-Description: Courses service
+Description: User webservice
 Depends: debconf (>= 0.5) | debconf-2.0
 PreDepends: dpkg (>= 1.15.7.2)
 Distribution: development

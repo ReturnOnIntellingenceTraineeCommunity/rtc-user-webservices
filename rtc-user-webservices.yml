@@ -1,4 +1,5 @@
 http:
+  rootPath: /api/*
   port:8079
   admin port:8179
 template: Hello, %s!
