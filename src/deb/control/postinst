@@ -1,4 +1,4 @@
 #!/bin/sh
 
-dos2unix /etc/init/rtc-course-webservices.conf
-start rtc-course-webservices
+dos2unix /etc/init/rtc-user-webservices.conf
+start rtc-user-webservices
