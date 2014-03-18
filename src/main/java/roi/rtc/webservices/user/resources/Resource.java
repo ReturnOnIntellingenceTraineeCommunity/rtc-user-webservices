@@ -7,11 +7,9 @@ package roi.rtc.webservices.user.resources;
 import com.google.common.base.Optional;
 import com.yammer.metrics.annotation.Timed;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 @Path("/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,14 +29,24 @@ public class Resource {
 
     @GET
     @Timed
-    public UserClass sayHello(@QueryParam("name") Optional<String> name) {
-        UserClass qwe = new UserClass();
-        qwe.setCity("ASD");
-        qwe.setEmail("asdfghjk");
-        return qwe;
-
-
+    public UserClass setUser(@QueryParam("name") Optional<String> name) {
+        UserClass user = new UserClass();
+        user.setCity("ASD");
+        user.setEmail("asdfghjk");
+        return user;
     }
+    @POST
+    public UserClass getUsers (UserClass user)
+    {
+        ArrayList usersList = new ArrayList();
+
+        usersList.add(user);
+
+        return  user;
+    }
+
+
+
 }
 
 
