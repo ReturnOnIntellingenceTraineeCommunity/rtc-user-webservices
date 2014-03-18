@@ -9,6 +9,7 @@ package roi.rtc.webservices.user.resources;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 
 @Path("/hello-world")
@@ -34,15 +35,15 @@ public class Resource {
         user.setEmail("asdfghjk");
         return user;
     }
-//    @POST
-//    public UserClass getUsers (UserClass user)
-//    {
-//        ArrayList usersList = new ArrayList();
-//
-//        usersList.add(user);
-//
-//        return  user;
-//    }
+    @POST
+    public UserClass getUsers (UserClass user)
+    {
+        ArrayList usersList = new ArrayList();
+
+        usersList.add(user);
+
+        return  user;
+    }
 
 
 

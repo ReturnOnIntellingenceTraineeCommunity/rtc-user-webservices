@@ -8,13 +8,13 @@ import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import roi.rtc.webservices.user.core.ConfigurationClass;
 import roi.rtc.webservices.user.resources.Resource;
-import org.hibernate.HibernateException;
+/*import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import java.io.File;
+import java.io.File;*/
 
 public class MainService extends Service<ConfigurationClass> {
     public static void main(String[] args) throws Exception {
@@ -33,7 +33,7 @@ public class MainService extends Service<ConfigurationClass> {
         environment.addResource(new Resource());
     }
 
-    private static final SessionFactory sessionFactory
+/*    private static final SessionFactory sessionFactory
             = configureSessionFactory();
     private static ServiceRegistry serviceRegistry;
 
@@ -51,6 +51,6 @@ public class MainService extends Service<ConfigurationClass> {
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
-    }
+    }*/
 
 }
