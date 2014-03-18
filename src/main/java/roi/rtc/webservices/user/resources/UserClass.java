@@ -1,6 +1,5 @@
 package roi.rtc.webservices.user.resources;
 
-
 import java.util.*;
 
 /**

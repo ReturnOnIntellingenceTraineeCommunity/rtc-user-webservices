@@ -21,8 +21,8 @@ public class MainService extends Service<ConfigurationClass> {
 
     @Override
     public void run(ConfigurationClass configuration,Environment environment) {
-        final String template = configuration.getTemplate();
-        final String defaultName = configuration.getDefaultName();
-        environment.addResource(new Resource(template, defaultName));
+//        final String template = configuration.getTemplate();
+//        final String defaultName = configuration.getDefaultName();
+        environment.addResource(new Resource());
     }
 }
