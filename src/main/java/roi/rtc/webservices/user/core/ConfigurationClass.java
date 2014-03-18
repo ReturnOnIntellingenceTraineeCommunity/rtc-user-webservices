@@ -1,7 +1,7 @@
 package roi.rtc.webservices.user.core;
 
 /**
- * Created by Angelos on 14.03.14.
+ * Created by Chernichenko Bogdan on 14.03.14.
  */
 import com.yammer.dropwizard.config.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;

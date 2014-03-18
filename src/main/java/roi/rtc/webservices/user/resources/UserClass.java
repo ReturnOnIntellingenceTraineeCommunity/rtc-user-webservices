@@ -3,7 +3,7 @@ package roi.rtc.webservices.user.resources;
 import java.util.*;
 
 /**
- * Created by Angelos on 18.03.14.
+ * Created by Chernichenko Bogdan on 18.03.14.
  */
 
 public class UserClass {

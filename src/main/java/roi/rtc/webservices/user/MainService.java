@@ -1,7 +1,7 @@
 package roi.rtc.webservices.user;
 
 /**
- * Created by Angelos on 14.03.14.
+ * Created by Chernichenko Bogdan on 14.03.14.
  */
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
