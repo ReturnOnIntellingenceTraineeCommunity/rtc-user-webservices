@@ -1,7 +1,6 @@
 package roi.rtc.webservices.user.resources;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Angelos on 18.03.14.
@@ -40,14 +39,14 @@ public class UserClass {
         return city;
     }
 
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
 
     public void setCity(String city) {
         this.city = city;
@@ -153,7 +152,8 @@ public class UserClass {
     }
 
 
-    public UserClass() {
+
+    public UserClass(){
 
     }
 
@@ -174,8 +174,8 @@ public class UserClass {
 
 
     }
-
-    public UserClass(String fio, String phone, String email, String city, String university, String faculty, String password) {
+    public UserClass (String fio, String phone, String email, String city, String university, String faculty, String password)
+    {
         this.fio = fio;
         this.phone = phone;
         this.email = email;

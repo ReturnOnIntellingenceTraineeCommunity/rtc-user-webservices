@@ -14,7 +14,8 @@ logging:
     # Do not write log statements below this threshold to the file.
     threshold: ALL
     # The file to which current statements will be logged.
-    currentLogFilename: /var/log/rtc-user-webservices/rtc-user-webservices.log
+    #currentLogFilename: /var/log/rtc-user-webservices/rtc-user-webservices.log
+    currentLogFilename: C:/log.txt
     # When the log file rotates, the archived log will be renamed to this and
     # gzipped. The %d is replaced with the previous day (yyyy-MM-dd). Custom
     # rolling windows can be created by passing a SimpleDateFormat-compatible

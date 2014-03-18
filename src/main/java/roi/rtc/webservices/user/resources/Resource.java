@@ -4,16 +4,15 @@ package roi.rtc.webservices.user.resources;
  * Created by Angelos on 14.03.14.
  */
 
-import com.google.common.base.Optional;
-import com.yammer.metrics.annotation.Timed;
+//import com.google.common.base.Optional;
+//import com.yammer.metrics.annotation.Timed;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
+
 
 @Path("/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
-
 public class Resource {
 //    private final String template;
 //    private final String defaultName;
@@ -28,22 +27,22 @@ public class Resource {
     }
 
     @GET
-    @Timed
-    public UserClass setUser(@QueryParam("name") Optional<String> name) {
+    @Path("/user")
+    public UserClass sayHello() {
         UserClass user = new UserClass();
         user.setCity("ASD");
         user.setEmail("asdfghjk");
         return user;
     }
-    @POST
-    public UserClass getUsers (UserClass user)
-    {
-        ArrayList usersList = new ArrayList();
-
-        usersList.add(user);
-
-        return  user;
-    }
+//    @POST
+//    public UserClass getUsers (UserClass user)
+//    {
+//        ArrayList usersList = new ArrayList();
+//
+//        usersList.add(user);
+//
+//        return  user;
+//    }
 
 
 
