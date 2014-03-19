@@ -6,7 +6,7 @@ import java.util.*;
  * Created by Chernichenko Bogdan on 18.03.14.
  */
 
-public class UserClass {
+public class User {
 
 
     private Integer id;
@@ -153,11 +153,11 @@ public class UserClass {
 
 
 
-    public UserClass(){
+    public User(){
 
     }
 
-    public UserClass(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String major, List<String> technologies, Integer writtenEng, Integer oralEng, String note, String password) {
+    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String major, List<String> technologies, Integer writtenEng, Integer oralEng, String note, String password) {
         this.fio = fio;
         this.phone = phone;
         this.email = email;
@@ -174,7 +174,7 @@ public class UserClass {
 
 
     }
-    public UserClass (String fio, String phone, String email, String city, String university, String faculty, String password)
+    public User(String fio, String phone, String email, String city, String university, String faculty, String password)
     {
         this.fio = fio;
         this.phone = phone;
