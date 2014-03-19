@@ -1,4 +1,4 @@
-package roi.rtc.webservices.user.resources;
+package roi.rtc.webservices.user.entity;
 
 import java.util.*;
 

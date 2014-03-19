@@ -8,6 +8,8 @@ package roi.rtc.webservices.user.resources;
 //import com.yammer.metrics.annotation.Timed;
 
 
+import roi.rtc.webservices.user.entity.User;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
@@ -17,13 +19,13 @@ import java.util.Map;
 
 @Path("/users-web-service")
 @Produces(MediaType.APPLICATION_JSON)
-public class Resource {
+public class UserResource {
 //    private final String template;
 //    private final String defaultName;
 //    private final AtomicLong counter;
 
 
-    public Resource() {
+    public UserResource() {
 //        this.template = template;
 //        this.defaultName = defaultName;
 //        this.counter = new AtomicLong();
@@ -35,9 +37,11 @@ public class Resource {
     User user = new User();
 
     @GET
-    public User getUser() {
+    @Path("{id}")
+    public User getUser(@PathParam("id") Integer id) {
 
-        return user;
+        //map.get(id);
+        return map.get(id);
     }
 
     @POST
