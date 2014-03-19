@@ -10,8 +10,8 @@ package roi.rtc.webservices.user.resources;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Path("/users-web-service")
@@ -29,22 +29,40 @@ public class Resource {
 
     }
 
-   ArrayList userArray = new ArrayList();
+
+    Map map = new HashMap();
+    UserClass user = new UserClass();
+
    @GET
    public UserClass getUser() {
-       UserClass user = new UserClass();
+
        return user;
    }
 
     @POST
     public UserClass addUser (UserClass user)
     {
-        userArray.add(user);
+        map.put(user.getId(),user);
+
         return  user;
     }
 
 
+@GET
+@Path("{id}")
+    public UserClass delete (@PathParam("id") Integer id )
+    {
 
+        map.remove(user.getId());
+
+        return user;
+    }
+
+   /*@GET
+    public Collection<Map> getAll ()
+    {
+        return map.;
+    }*/
 }
 
 
