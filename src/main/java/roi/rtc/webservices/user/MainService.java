@@ -21,8 +21,7 @@ public class MainService extends Service<ConfigurationClass> {
         new MainService().run(args);
     }
 
-    private final HibernateBundle<MainServiceConfiguration> hibernate
-            = new HibernateBundle<MainServiceConfiguration>(Dao1.class) {
+private final HibernateBundle<MainServiceConfiguration> hibernate= new HibernateBundle<MainServiceConfiguration>(Dao1.class) {
 
                 @Override
                 public DatabaseConfiguration getDatabaseConfiguration(MainServiceConfiguration configuration) {
