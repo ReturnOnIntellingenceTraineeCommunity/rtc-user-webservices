@@ -3,8 +3,14 @@ http:
   port: 8078
   adminPort: 8178
 
-template: Hello, %s!
-defaultName: Stranger
+database:
+  driverClass: com.mysql.jdbc.Driver
+  user: rtc_user_reg
+  password: register
+  url: jdbc:mysql://localhost/courses?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
+  properties:
+      hibernate.hbm2ddl.auto: update
+
 logging:
   level: info
   # Settings for logging to a file.
