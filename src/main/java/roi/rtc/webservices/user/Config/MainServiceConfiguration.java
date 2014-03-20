@@ -17,7 +17,7 @@ public class MainServiceConfiguration extends Configuration {
         return messages;
     }
 
-    public void setMessages(MessagesConfiguration messages) {
+    public void setMessages(roi.rtc.webservices.user.config.MessagesConfiguration messages) {
         this.messages = messages;
     }
 
