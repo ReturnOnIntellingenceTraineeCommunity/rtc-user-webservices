@@ -6,7 +6,7 @@ import roi.rtc.webservices.user.dao.UserDAO;
 import roi.rtc.webservices.user.entity.User;
 
 import java.util.List;
-import roi.rtc.webservices.user.resources.*;
+//import roi.rtc.webservices.user.resources.*;
 
 /**
  * Created by Eugene on 19.03.14.
