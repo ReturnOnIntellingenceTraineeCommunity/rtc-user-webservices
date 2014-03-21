@@ -33,7 +33,6 @@ public class MainService extends Service<MainServiceConfiguration> {
 
     @Override
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
-        bootstrap.setName("hello-world");
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
         bootstrap.addBundle((ConfiguredBundle) hibernate);
     }
