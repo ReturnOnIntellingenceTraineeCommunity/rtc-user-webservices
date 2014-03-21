@@ -3,25 +3,37 @@ package roi.rtc.webservices.user.dao.impl;
 import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 import roi.rtc.webservices.user.dao.UserDAO;
-import roi.rtc.webservices.user.entities.Dao1;
+import roi.rtc.webservices.user.entity.User;
+
+import java.util.List;
 
 /**
  * Created by Eugene on 19.03.14.
  */
-public class UserDAOImpl extends AbstractDAO<Dao1> implements UserDAO {
+public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 
     public UserDAOImpl(SessionFactory factory) {
         super(factory);
     }
 
+
     @Override
-    public Dao1 insert(Dao1 dao) {
-        currentSession().save(dao);
-        return dao;
+    public User getById(Integer id) {
+        return null;
     }
 
     @Override
-    public Dao1 get(int daoId) {
-        return (Dao1) currentSession().get(Dao1.class, daoId);
+    public void save(User user) {
+
+    }
+
+    @Override
+    public void delete(User user) {
+
+    }
+
+    @Override
+    public List<User> getAll() {
+        return null;
     }
 }
