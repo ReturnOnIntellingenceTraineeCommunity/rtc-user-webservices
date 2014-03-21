@@ -12,6 +12,8 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
 import roi.rtc.webservices.user.config.MainServiceConfiguration;
+import roi.rtc.webservices.user.dao.UserDAO;
+import roi.rtc.webservices.user.dao.impl.UserDAOImpl;
 import roi.rtc.webservices.user.entity.User;
 import roi.rtc.webservices.user.resources.UserResource;
 
@@ -38,9 +40,8 @@ public class MainService extends Service<MainServiceConfiguration> {
 
     @Override
     public void run(MainServiceConfiguration configuration, Environment environment) {
-//        final String template = configuration.getTemplate();
-//        final String defaultName = configuration.getDefaultName();
-        environment.addResource(new UserResource());
+        final UserDAO dao = new UserDAOImpl(hibernate.getSessionFactory());
+        environment.addResource(new UserResource(dao));
     }
 
 }
