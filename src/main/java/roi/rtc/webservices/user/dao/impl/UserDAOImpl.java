@@ -6,6 +6,7 @@ import roi.rtc.webservices.user.dao.UserDAO;
 import roi.rtc.webservices.user.entity.User;
 
 import java.util.List;
+import roi.rtc.webservices.user.resources.*;
 
 /**
  * Created by Eugene on 19.03.14.
@@ -19,21 +20,22 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 
     @Override
     public User getById(Integer id) {
-        return null;
+        return get(id);
     }
 
     @Override
     public void save(User user) {
-
+        save(user);
     }
 
     @Override
-    public void delete(User user) {
-
+    public void delete(Integer id) {
+        User user = get(id);
+        currentSession().delete(user);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return currentSession().createCriteria(User.class).list();
     }
 }
