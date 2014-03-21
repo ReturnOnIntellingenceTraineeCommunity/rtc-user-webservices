@@ -1,14 +1,16 @@
 package roi.rtc.webservices.user.entity;
 
+import javax.persistence.*;
 import java.util.*;
 
 /**
  * Created by Chernichenko Bogdan on 18.03.14.
  */
-
+@Entity
 public class User {
 
-
+    @Id
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Integer id;
 
     private String fio;
@@ -27,6 +29,7 @@ public class User {
 
     private String speciality;
 
+    @ElementCollection
     private List<String> technologies;
 
     private Integer writtenEng;

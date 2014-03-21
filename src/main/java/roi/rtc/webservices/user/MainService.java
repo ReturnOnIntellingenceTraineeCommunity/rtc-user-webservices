@@ -12,8 +12,8 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
 import roi.rtc.webservices.user.config.MainServiceConfiguration;
-import roi.rtc.webservices.user.entities.Dao1;
-import roi.rtc.webservices.user.resources.Resource;
+import roi.rtc.webservices.user.entity.User;
+import roi.rtc.webservices.user.resources.UserResource;
 
 public class MainService extends Service<MainServiceConfiguration> {
 
@@ -21,7 +21,7 @@ public class MainService extends Service<MainServiceConfiguration> {
         new MainService().run(args);
     }
 
-    private final HibernateBundle<MainServiceConfiguration> hibernate = new HibernateBundle<MainServiceConfiguration>(Dao1.class) {
+    private final HibernateBundle<MainServiceConfiguration> hibernate = new HibernateBundle<MainServiceConfiguration>(User.class) {
 
         @Override
         public DatabaseConfiguration getDatabaseConfiguration(MainServiceConfiguration configuration) {
@@ -40,7 +40,7 @@ public class MainService extends Service<MainServiceConfiguration> {
     public void run(MainServiceConfiguration configuration, Environment environment) {
 //        final String template = configuration.getTemplate();
 //        final String defaultName = configuration.getDefaultName();
-        environment.addResource(new Resource());
+        environment.addResource(new UserResource());
     }
 
 }
