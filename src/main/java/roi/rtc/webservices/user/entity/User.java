@@ -1,5 +1,7 @@
 package roi.rtc.webservices.user.entity;
 
+import roi.rtc.webservices.user.test.TestUser;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -193,5 +195,21 @@ public class User {
         this.note = "df";
         this.password = password;
     }
-
+    public User(TestUser testUser)
+    {
+        this.fio = testUser.getFio();
+        this.phone = testUser.getPhone();
+        this.email = testUser.getEmail();
+        this.birthDate = testUser.getBirthDate();
+        this.city = testUser.getCity();
+        this.university = testUser.getUniversity();
+        this.faculty = testUser.getFaculty();
+        this.speciality = testUser.getSpeciality();
+        //
+        this.technologies = null;
+        this.writtenEng = 1;
+        this.oralEng = 2;
+        this.note = "df";
+        this.password = testUser.getPassword;
+    }
 }
