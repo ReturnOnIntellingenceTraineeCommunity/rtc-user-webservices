@@ -205,7 +205,6 @@ public class User {
         this.university = testUser.getUniversity();
         this.faculty = testUser.getFaculty();
         this.speciality = testUser.getSpeciality();
-        //
         this.technologies = null;
         this.writtenEng = 1;
         this.oralEng = 2;

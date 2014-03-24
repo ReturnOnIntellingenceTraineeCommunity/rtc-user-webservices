@@ -25,7 +25,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 
     @Override
     public void save(User user) {
-        save(user);
+        persist(user);
     }
 
     @Override

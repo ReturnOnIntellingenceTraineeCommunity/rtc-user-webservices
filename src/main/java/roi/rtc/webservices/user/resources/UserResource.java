@@ -5,6 +5,7 @@ package roi.rtc.webservices.user.resources;
  */
 
 
+import com.yammer.dropwizard.hibernate.UnitOfWork;
 import roi.rtc.webservices.user.entity.User;
 
 import javax.ws.rs.*;
@@ -30,6 +31,7 @@ public class UserResource {
 
 
     @GET
+    @UnitOfWork
     @Path("{id}")
     public User getUser(@PathParam("id") Integer id) {
 
@@ -38,6 +40,7 @@ public class UserResource {
     }
 
     @POST
+    @UnitOfWork
     public User addUser(User user) {
 
         userDAO.save(user);
@@ -46,6 +49,7 @@ public class UserResource {
 
 
     @DELETE
+    @UnitOfWork
     @Path("{id}")
     public boolean delete(@PathParam("id") Integer id) {
 
@@ -54,9 +58,10 @@ public class UserResource {
     }
 
     @GET
+    @UnitOfWork
     @Path("viewAll")
     public Collection<User> getAll() {
-
+       // userDAO.save(new User());
         return userDAO.getAll();
     }
 }
