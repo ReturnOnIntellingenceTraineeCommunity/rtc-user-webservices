@@ -11,6 +11,7 @@ import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
+import com.yammer.dropwizard.migrations.MigrationsBundle;
 import roi.rtc.webservices.user.config.MainServiceConfiguration;
 import roi.rtc.webservices.user.dao.UserDAO;
 import roi.rtc.webservices.user.dao.impl.UserDAOImpl;
@@ -35,6 +36,13 @@ public class MainService extends Service<MainServiceConfiguration> {
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
         bootstrap.addBundle((ConfiguredBundle) hibernate);
+        bootstrap.addBundle(new MigrationsBundle<MainServiceConfiguration>() {
+            @Override
+            public DatabaseConfiguration getDatabaseConfiguration(MainServiceConfiguration configuration) {
+                return configuration.getDatabase();
+            }
+
+        });
     }
 
     @Override
@@ -42,5 +50,7 @@ public class MainService extends Service<MainServiceConfiguration> {
         final UserDAO dao = new UserDAOImpl(hibernate.getSessionFactory());
         environment.addResource(new UserResource(dao));
     }
+
+
 
 }

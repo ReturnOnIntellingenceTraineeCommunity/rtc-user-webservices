@@ -75,6 +75,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>4.1.7.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.yammer.dropwizard</groupId>
+            <artifactId>dropwizard-migrations</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
