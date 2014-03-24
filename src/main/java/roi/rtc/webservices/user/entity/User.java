@@ -1,5 +1,6 @@
 package roi.rtc.webservices.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import roi.rtc.webservices.user.test.TestUser;
 
 import javax.persistence.*;
@@ -39,6 +40,27 @@ public class User {
     private Integer oralEng;
     private String note;
     private String password;
+
+    @JsonIgnore
+    private Date regDate;
+    @JsonIgnore
+    private Date editDate;
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+    }
+
+    public Date getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(Date editDate) {
+        this.editDate = editDate;
+    }
 
     public String getCity() {
         return city;

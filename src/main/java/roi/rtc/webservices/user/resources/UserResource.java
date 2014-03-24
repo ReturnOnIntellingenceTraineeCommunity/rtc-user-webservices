@@ -64,6 +64,7 @@ public class UserResource {
        // userDAO.save(new User());
         return userDAO.getAll();
     }
+
 }
 
 
