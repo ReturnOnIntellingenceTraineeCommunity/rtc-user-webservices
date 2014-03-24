@@ -41,12 +41,12 @@ public class User {
     private String note;
     private String password;
 
-    @JsonIgnore
+    /*@JsonIgnore
     private Date regDate;
     @JsonIgnore
-    private Date editDate;
+    private Date editDate;*/
 
-    public Date getRegDate() {
+   /* public Date getRegDate() {
         return regDate;
     }
 
@@ -60,7 +60,7 @@ public class User {
 
     public void setEditDate(Date editDate) {
         this.editDate = editDate;
-    }
+    }*/
 
     public String getCity() {
         return city;
