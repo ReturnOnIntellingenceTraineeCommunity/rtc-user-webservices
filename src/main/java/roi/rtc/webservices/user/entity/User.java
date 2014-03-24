@@ -210,6 +210,6 @@ public class User {
         this.writtenEng = 1;
         this.oralEng = 2;
         this.note = "df";
-        this.password = testUser.getPassword;
+        this.password = testUser.getPassword();
     }
 }
