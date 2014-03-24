@@ -5,7 +5,7 @@ http:
 
 database:
   driverClass: com.mysql.jdbc.Driver
-  user: root
+  user: rtc_user_reg
   password: register
   url: jdbc:mysql://localhost/registration?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
   properties:
