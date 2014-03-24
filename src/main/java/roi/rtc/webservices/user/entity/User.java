@@ -1,6 +1,6 @@
 package roi.rtc.webservices.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import roi.rtc.webservices.user.test.TestUser;
 
 import javax.persistence.*;
