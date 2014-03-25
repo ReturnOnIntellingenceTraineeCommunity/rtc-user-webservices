@@ -10,13 +10,10 @@
     <changeSet author="liquibase-docs" id="loadUpdateData-example">
         <loadUpdateData
                         encoding="UTF-8"
-                        file="resources/csv/users.csv"
+                        file="csv/users.csv"
                         primaryKey="id"
-                        quotchar="A String"
-                        schemaName="public"
-                        separator="A String"
                         tableName="User">
-            <column name="address" type="varchar(255)"/>
+
         </loadUpdateData>
     </changeSet>
 

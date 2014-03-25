@@ -95,11 +95,11 @@ public class User {
         this.faculty = faculty;
     }
 
-    public String getMajor() {
+    public String getSpeciality() {
         return speciality;
     }
 
-    public void setMajor(String speciality) {
+    public void setSpeciality(String speciality) {
         this.speciality = speciality;
     }
 
