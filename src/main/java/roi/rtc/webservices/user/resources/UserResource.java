@@ -11,8 +11,6 @@ import roi.rtc.webservices.user.entity.User;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
-//import java.util.HashMap;
-//import java.util.Map;
 import roi.rtc.webservices.user.dao.UserDAO;
 
 

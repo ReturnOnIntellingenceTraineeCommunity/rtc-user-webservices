@@ -1,7 +1,6 @@
 package roi.rtc.webservices.user.entity;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
-//import roi.rtc.webservices.user.test.TestUser;
 
 import javax.persistence.*;
 import java.util.*;
@@ -32,12 +31,12 @@ public class User {
 
     private String speciality;
 
-    //private String technologies;
-
     private Integer writtenEng;
 
     private Integer oralEng;
+
     private String note;
+
     private String password;
 
     /*@JsonIgnore
@@ -101,16 +100,6 @@ public class User {
         this.speciality = speciality;
     }
 
-    //maybe this getter maybe should be changed
-    //I have no idea how to pass several technologies from a reg.form to a controller and user
-
-   /* public String getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(String technologies) {this.technologies = technologies;
-    }
-*/
     public Integer getWrittenEng() {
         return writtenEng;
     }
@@ -181,7 +170,7 @@ public class User {
 
     }
 
-    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality/*,String technologies*/, Integer writtenEng, Integer oralEng, String note, String password) {
+    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality, Integer writtenEng, Integer oralEng, String note, String password) {
         this.fio = fio;
         this.phone = phone;
         this.email = email;
@@ -190,7 +179,6 @@ public class User {
         this.university = university;
         this.faculty = faculty;
         this.speciality = speciality;
-        //this.technologies = technologies;
         this.writtenEng = writtenEng;
         this.oralEng = oralEng;
         this.note = note;
