@@ -1,7 +1,7 @@
 package roi.rtc.webservices.user.entity;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
-import roi.rtc.webservices.user.test.TestUser;
+//import roi.rtc.webservices.user.test.TestUser;
 
 import javax.persistence.*;
 import java.util.*;
@@ -32,8 +32,7 @@ public class User {
 
     private String speciality;
 
-    @ElementCollection
-    private List<String> technologies;
+    //private String technologies;
 
     private Integer writtenEng;
 
@@ -74,7 +73,6 @@ public class User {
         this.id = id;
     }
 
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -106,14 +104,13 @@ public class User {
     //maybe this getter maybe should be changed
     //I have no idea how to pass several technologies from a reg.form to a controller and user
 
-    public List<String> getTechnologies() {
+   /* public String getTechnologies() {
         return technologies;
     }
 
-    public void setTechnologies(List<String> technologies) {
-        this.technologies = technologies;
+    public void setTechnologies(String technologies) {this.technologies = technologies;
     }
-
+*/
     public Integer getWrittenEng() {
         return writtenEng;
     }
@@ -184,7 +181,7 @@ public class User {
 
     }
 
-    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String major, List<String> technologies, Integer writtenEng, Integer oralEng, String note, String password) {
+    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality/*,String technologies*/, Integer writtenEng, Integer oralEng, String note, String password) {
         this.fio = fio;
         this.phone = phone;
         this.email = email;
@@ -192,8 +189,8 @@ public class User {
         this.city = city;
         this.university = university;
         this.faculty = faculty;
-        this.speciality = major;
-        this.technologies = technologies;
+        this.speciality = speciality;
+        //this.technologies = technologies;
         this.writtenEng = writtenEng;
         this.oralEng = oralEng;
         this.note = note;
@@ -201,36 +198,6 @@ public class User {
 
 
     }
-    public User(String fio, String phone, String email, String city, String university, String faculty, String password)
-    {
-        this.fio = fio;
-        this.phone = phone;
-        this.email = email;
-        this.birthDate = new Date();
-        this.city = city;
-        this.university = university;
-        this.faculty = faculty;
-        this.speciality = "bb";
-        this.technologies = null;
-        this.writtenEng = 1;
-        this.oralEng = 2;
-        this.note = "df";
-        this.password = password;
-    }
-    public User(TestUser testUser)
-    {
-        this.fio = testUser.getFio();
-        this.phone = testUser.getPhone();
-        this.email = testUser.getEmail();
-        this.birthDate = testUser.getBirthDate();
-        this.city = testUser.getCity();
-        this.university = testUser.getUniversity();
-        this.faculty = testUser.getFaculty();
-        this.speciality = testUser.getSpeciality();
-        this.technologies = null;
-        this.writtenEng = 1;
-        this.oralEng = 2;
-        this.note = "df";
-        this.password = testUser.getPassword();
-    }
+
+
 }
