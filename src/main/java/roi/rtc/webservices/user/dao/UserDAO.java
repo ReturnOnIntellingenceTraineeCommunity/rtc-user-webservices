@@ -12,6 +12,8 @@ public interface UserDAO {
 
     User getById (Integer id);
 
+    User getByLogin(String email);
+
     void save (User user);
 
     void delete (Integer id);

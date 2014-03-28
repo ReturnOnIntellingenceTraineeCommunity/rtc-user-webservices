@@ -32,15 +32,19 @@ public class UserResource {
     @UnitOfWork
     @Path("{id}")
     public User getUser(@PathParam("id") Integer id) {
-
-
         return userDAO.getById(id);
+    }
+
+    @GET
+    @UnitOfWork
+    @Path("login/{email}")
+    public User getLogin(@PathParam("email") String email) {
+        return userDAO.getByLogin(email);
     }
 
     @POST
     @UnitOfWork
     public User addUser(User user) {
-
         userDAO.save(user);
         return user;
     }
@@ -59,7 +63,6 @@ public class UserResource {
     @UnitOfWork
     @Path("viewAll")
     public Collection<User> getAll() {
-       // userDAO.save(new User());
         return userDAO.getAll();
     }
 

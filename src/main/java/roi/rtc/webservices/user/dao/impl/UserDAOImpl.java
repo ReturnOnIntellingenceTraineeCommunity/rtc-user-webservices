@@ -2,6 +2,7 @@ package roi.rtc.webservices.user.dao.impl;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import roi.rtc.webservices.user.dao.UserDAO;
 import roi.rtc.webservices.user.entity.User;
 
@@ -21,6 +22,14 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     @Override
     public User getById(Integer id) {
         return get(id);
+    }
+
+    @Override
+    public User getByLogin(String email)
+    {
+        return (User) currentSession().
+                createCriteria(User.class).
+                add(Restrictions.eq("email",email)).uniqueResult();
     }
 
     @Override
