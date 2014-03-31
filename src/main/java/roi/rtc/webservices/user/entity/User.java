@@ -16,7 +16,11 @@ public class User {
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Integer id;
 
-    private String fio;
+    private String surname;
+
+    private String name;
+
+    private String middleName;
 
     private String phone;
 
@@ -143,12 +147,28 @@ public class User {
         this.password = password;
     }
 
-    public String getFio() {
-        return fio;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getName() {
+        return surname;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getPhone() {
@@ -180,9 +200,11 @@ public class User {
     public User(){
 
     }
-
-    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality/*,String technologies*/, Integer writtenEng, Integer oralEng, String note, String password) {
-        this.fio = fio;
+////surname name middleName
+    public User(String surname,String name,String middleName, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality/*,String technologies*/, Integer writtenEng, Integer oralEng, String note, String password) {
+        this.surname = surname;
+        this.name = name;
+        this.middleName = middleName;
         this.phone = phone;
         this.email = email;
         this.birthDate = birthDate;
