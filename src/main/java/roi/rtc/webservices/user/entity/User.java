@@ -3,13 +3,18 @@ package roi.rtc.webservices.user.entity;
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
 /**
  * Created by Chernichenko Bogdan on 18.03.14.
+ *
+ * @author Vladislav Pikus
+ * @author Chernichenko Bogdan
  */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@XmlRootElement
 public class User {
 
     @Id
