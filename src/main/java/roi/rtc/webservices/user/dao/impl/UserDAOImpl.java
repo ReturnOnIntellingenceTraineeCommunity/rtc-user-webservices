@@ -1,9 +1,12 @@
 package roi.rtc.webservices.user.dao.impl;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import roi.rtc.webservices.user.dao.UserDAO;
+import roi.rtc.webservices.user.entity.Roles;
 import roi.rtc.webservices.user.entity.User;
 
 import java.util.List;
@@ -25,11 +28,10 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     }
 
     @Override
-    public User getByLogin(String email)
-    {
+    public User getByLogin(String email) {
         return (User) currentSession().
                 createCriteria(User.class).
-                add(Restrictions.eq("email",email)).uniqueResult();
+                add(Restrictions.eq("email", email)).uniqueResult();
     }
 
     @Override
@@ -46,5 +48,13 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     @Override
     public List<User> getAll() {
         return currentSession().createCriteria(User.class).list();
+    }
+
+    @Override
+    public boolean checkAdmin() {
+        return ((Long) currentSession().createCriteria(User.class).setFetchMode("authorities", FetchMode.SELECT)
+                .createAlias("authorities", "authorities").add(Restrictions.disjunction()
+                        .add(Restrictions.eq("authorities.name", Roles.ROLE_ADMIN)))
+                .setProjection(Projections.rowCount()).uniqueResult()) == 0;
     }
 }

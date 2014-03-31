@@ -2,6 +2,7 @@ package roi.rtc.webservices.user.dao;
 
 
 import roi.rtc.webservices.user.entity.User;
+
 import java.util.List;
 
 /**
@@ -19,5 +20,7 @@ public interface UserDAO {
     void delete (Integer id);
 
     List<User> getAll();
+
+    boolean checkAdmin();
 
 }
