@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Created by Chernichenko Bogdan on 18.03.14.
- *
+ * 
  * @author Vladislav Pikus
  * @author Chernichenko Bogdan
  */
@@ -28,7 +28,7 @@ public class User {
     private String email;
 
     private Date birthDate;
-
+//build))
     private String city;
 
     private String university;
