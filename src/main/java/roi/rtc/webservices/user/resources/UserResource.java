@@ -11,8 +11,6 @@ import roi.rtc.webservices.user.entity.User;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
-//import java.util.HashMap;
-//import java.util.Map;
 import roi.rtc.webservices.user.dao.UserDAO;
 
 
@@ -34,15 +32,19 @@ public class UserResource {
     @UnitOfWork
     @Path("{id}")
     public User getUser(@PathParam("id") Integer id) {
-
-
         return userDAO.getById(id);
+    }
+
+    @GET
+    @UnitOfWork
+    @Path("login/{email}")
+    public User getLogin(@PathParam("email") String email) {
+        return userDAO.getByLogin(email);
     }
 
     @POST
     @UnitOfWork
     public User addUser(User user) {
-
         userDAO.save(user);
         return user;
     }
@@ -61,7 +63,6 @@ public class UserResource {
     @UnitOfWork
     @Path("viewAll")
     public Collection<User> getAll() {
-       // userDAO.save(new User());
         return userDAO.getAll();
     }
 

@@ -1,19 +1,25 @@
 package roi.rtc.webservices.user.entity;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
-//import roi.rtc.webservices.user.test.TestUser;
 
 import javax.persistence.*;
-import java.util.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Chernichenko Bogdan on 18.03.14.
+ *
+ * @author Vladislav Pikus
+ * @author Chernichenko Bogdan
  */
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@XmlRootElement
 public class User {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String surname;
@@ -44,6 +50,61 @@ public class User {
     private String note;
     private String password;
 
+    /* Spring Security fields*/
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles_refs",
+            joinColumns = {@JoinColumn(name = "ROLE_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "id")})
+    private List<Role> authorities;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+    private boolean enabled = true;
+
+    public List<Role> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Role> authorities) {
+        this.authorities = authorities;
+    }
+
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * *********************************
+     */
+
     /*@JsonIgnore
     private Date regDate;
     @JsonIgnore
@@ -64,7 +125,6 @@ public class User {
     public void setEditDate(Date editDate) {
         this.editDate = editDate;
     }*/
-
     public String getCity() {
         return city;
     }
@@ -105,16 +165,6 @@ public class User {
         this.speciality = speciality;
     }
 
-    //maybe this getter maybe should be changed
-    //I have no idea how to pass several technologies from a reg.form to a controller and user
-
-   /* public String getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(String technologies) {this.technologies = technologies;
-    }
-*/
     public Integer getWrittenEng() {
         return writtenEng;
     }
@@ -196,12 +246,11 @@ public class User {
     }
 
 
-
-    public User(){
+    public User() {
 
     }
-////surname name middleName
-    public User(String surname,String name,String middleName, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality/*,String technologies*/, Integer writtenEng, Integer oralEng, String note, String password) {
+
+    public User(String surname, String name, String middleName, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality, Integer writtenEng, Integer oralEng, String note, String password, List<Role> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.surname = surname;
         this.name = name;
         this.middleName = middleName;
@@ -212,14 +261,49 @@ public class User {
         this.university = university;
         this.faculty = faculty;
         this.speciality = speciality;
-        //this.technologies = technologies;
         this.writtenEng = writtenEng;
         this.oralEng = oralEng;
         this.note = note;
         this.password = password;
-
-
+        this.authorities = authorities;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
     }
 
+    public User(String middleName, String surname, String name, String email, String password) {
+        this.middleName = middleName;
+        this.surname = surname;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("User{");
+        sb.append("id=").append(id);
+        sb.append(", surname='").append(surname).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", middleName='").append(middleName).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", birthDate=").append(birthDate);
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", university='").append(university).append('\'');
+        sb.append(", faculty='").append(faculty).append('\'');
+        sb.append(", speciality='").append(speciality).append('\'');
+        sb.append(", writtenEng=").append(writtenEng);
+        sb.append(", oralEng=").append(oralEng);
+        sb.append(", note='").append(note).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", authorities=").append(authorities);
+        sb.append(", accountNonExpired=").append(accountNonExpired);
+        sb.append(", accountNonLocked=").append(accountNonLocked);
+        sb.append(", credentialsNonExpired=").append(credentialsNonExpired);
+        sb.append(", enabled=").append(enabled);
+        sb.append('}');
+        return sb.toString();
+    }
 }
