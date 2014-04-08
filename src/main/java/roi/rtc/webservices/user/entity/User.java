@@ -21,14 +21,18 @@ public class User {
     @GeneratedValue( strategy = GenerationType.AUTO )
     private Integer id;
 
-    private String fio;
+    private String surname;
+
+    private String name;
+
+    private String middleName;
 
     private String phone;
 
     private String email;
 
     private Date birthDate;
-//build))
+
     private String city;
 
     private String university;
@@ -118,6 +122,17 @@ public class User {
     public void setEditDate(Date editDate) {
         this.editDate = editDate;
     }*/
+    public String getMiddleName() {return middleName;}
+
+    public void setMiddleName(String middleName) {this.middleName = middleName; }
+    public String getName() {return name; }
+
+    public void setName(String name) {this.name = name;}
+    public String getSurname() {return surname; }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     public String getCity() {
         return city;
@@ -191,14 +206,6 @@ public class User {
         this.password = password;
     }
 
-    public String getFio() {
-        return fio;
-    }
-
-    public void setFio(String fio) {
-        this.fio = fio;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -229,14 +236,18 @@ public class User {
 
     }
 
-    public User(String fio, String email, String password) {
-        this.fio = fio;
+    public User(String name,String surname,String middleName, String email, String password) {
+        this.name = name;
+        this.surname=surname;
+        this.middleName=middleName;
         this.email = email;
         this.password = password;
     }
 
-    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality, Integer writtenEng, Integer oralEng, String note, String password) {
-        this.fio = fio;
+    public User(String name,String surname,String middleName, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality, Integer writtenEng, Integer oralEng, String note, String password) {
+        this.name = name;
+        this.surname=surname;
+        this.middleName=middleName;
         this.phone = phone;
         this.email = email;
         this.birthDate = birthDate;
@@ -256,7 +267,9 @@ public class User {
     public String toString() {
         final StringBuffer sb = new StringBuffer("User{");
         sb.append("id=").append(id);
-        sb.append(", fio='").append(fio).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", surname='").append(surname).append('\'');
+        sb.append(", middleName='").append(middleName).append('\'');
         sb.append(", phone='").append(phone).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", birthDate=").append(birthDate);

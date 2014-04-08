@@ -66,7 +66,7 @@ public class MainService extends Service<MainServiceConfiguration> {
         session.beginTransaction();
         if (dao.checkAdmin()) {
             session.getTransaction().commit();
-            User admin = new User("Test Test", "test@rtcapp.dp.ua", "testpass");
+            User admin = new User("TestName","TestMiddlename","TestSurname", "test@rtcapp.dp.ua", "testpass");
             admin.setAuthorities(Arrays.asList(new Role(Roles.ROLE_ADMIN), new Role(Roles.ROLE_USER)));
             System.out.println(admin);
             session.beginTransaction();
