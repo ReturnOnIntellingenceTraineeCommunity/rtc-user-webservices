@@ -46,6 +46,13 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     }
 
     @Override
+    public void update(User user) {
+
+        currentSession().update(user);
+
+    }
+
+    @Override
     public List<User> getAll() {
         return currentSession().createCriteria(User.class).list();
     }

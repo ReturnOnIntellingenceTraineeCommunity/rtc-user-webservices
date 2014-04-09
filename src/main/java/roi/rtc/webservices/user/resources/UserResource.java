@@ -49,6 +49,14 @@ public class UserResource {
         return user;
     }
 
+    @POST
+    @UnitOfWork
+    @Path("update")
+    public void update(User user)
+    {
+        userDAO.update(user);
+
+    }
 
     @DELETE
     @UnitOfWork
