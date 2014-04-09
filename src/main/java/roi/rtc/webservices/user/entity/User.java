@@ -44,6 +44,7 @@ public class User {
       private String gender;
     
     private String progLanguages;
+    
     private String english;
 
     
@@ -75,7 +76,7 @@ public class User {
     {
         this.english=english;
     }
-    public String getEndlish()
+    public String getEnglish()
     {
         return this.english;
     }
@@ -308,6 +309,7 @@ public class User {
         sb.append(", university='").append(university).append('\'');
         sb.append(", faculty='").append(faculty).append('\'');
         sb.append(", speciality='").append(speciality).append('\'');
+         sb.append(", gender='").append(gender).append('\'');
         sb.append(", writtenEng=").append(writtenEng);
         sb.append(", oralEng=").append(oralEng);
         sb.append(", note='").append(note).append('\'');
@@ -316,7 +318,8 @@ public class User {
         sb.append(", accountNonExpired=").append(accountNonExpired);
         sb.append(", accountNonLocked=").append(accountNonLocked);
         sb.append(", credentialsNonExpired=").append(credentialsNonExpired);
-        sb.append(", enabled=").append(enabled);
+        sb.append(", enabled=").append(enabled).append('\'');
+        sb.append(", english=").append(english);
         sb.append('}');
         return sb.toString();
     }
