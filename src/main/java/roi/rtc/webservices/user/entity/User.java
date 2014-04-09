@@ -41,6 +41,12 @@ public class User {
 
     private String speciality;
 
+      private String gender;
+    
+    private String progLanguages;
+    private String english;
+
+    
     private Integer writtenEng;
 
     private Integer oralEng;
@@ -49,6 +55,31 @@ public class User {
 
     private String password;
 
+    public void setGender(String gender)
+    {
+        this.gender=gender;
+    }
+    public String getGender()
+    {
+        return this.gender;
+    }
+    public void setProgLanguages(String progLanguages)
+    {
+        this.progLanguages=progLanguages;
+    }
+    public String getProgLanguages()
+    {
+        return this.progLanguages;
+    }
+    public void setEnglish(String english)
+    {
+        this.english=english;
+    }
+    public String getEndlish()
+    {
+        return this.english;
+    }
+    
     /* Spring Security fields*/
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name="users_roles_refs",
