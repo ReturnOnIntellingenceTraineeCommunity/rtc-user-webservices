@@ -41,6 +41,7 @@ public class UserResource {
     public User getLogin(@PathParam("email") String email) {
         return userDAO.getByLogin(email);
     }
+    
 
     @POST
     @UnitOfWork
