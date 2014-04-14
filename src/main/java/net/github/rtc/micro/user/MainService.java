@@ -11,6 +11,7 @@ import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
+import net.github.rtc.micro.user.entity.RoleType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.context.internal.ManagedSessionContext;
@@ -18,13 +19,11 @@ import net.github.rtc.micro.user.config.MainServiceConfiguration;
 import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.dao.impl.UserDaoImpl;
 import net.github.rtc.micro.user.entity.Role;
-import net.github.rtc.micro.user.entity.Roles;
 import net.github.rtc.micro.user.entity.User;
 import net.github.rtc.micro.user.resource.UserResource;
 
 import java.util.Arrays;
 
-//import com.yammer.dropwizard.migrations.MigrationsBundle;
 
 public class MainService extends Service<MainServiceConfiguration> {
 
@@ -45,13 +44,6 @@ public class MainService extends Service<MainServiceConfiguration> {
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
         bootstrap.addBundle((ConfiguredBundle) hibernate);
-       /* bootstrap.addBundle(new MigrationsBundle<MainServiceConfiguration>() {
-            @Override
-            public DatabaseConfiguration getDatabaseConfiguration(MainServiceConfiguration configuration) {
-                return configuration.getDatabase();
-            }
-
-        });*/
     }
 
     /**
@@ -67,7 +59,7 @@ public class MainService extends Service<MainServiceConfiguration> {
         if (dao.checkAdmin()) {
             session.getTransaction().commit();
             User admin = new User("Test", "Test", "Test", "test@rtcapp.dp.ua", "testpass");
-            admin.setAuthorities(Arrays.asList(new Role(Roles.ROLE_ADMIN), new Role(Roles.ROLE_USER)));
+            admin.setAuthorities(Arrays.asList(new Role(RoleType.ROLE_ADMIN), new Role(RoleType.ROLE_USER)));
             System.out.println(admin);
             session.beginTransaction();
             try {

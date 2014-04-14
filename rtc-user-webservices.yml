@@ -1,5 +1,6 @@
 http:
-  rootPath: /api/*
+  rootPath: /rtc-user-microservice/api/*
+
   port: 8078
   adminPort: 8178
 

@@ -26,15 +26,15 @@ public class Role implements Serializable {
     }
 
     @NotNull
-    private Roles name;
+    private RoleType name;
 
     @Column
     @Enumerated(EnumType.ORDINAL)
-    public Roles getName() {
+    public RoleType getName() {
         return name;
     }
 
-    public void setName(Roles name) {
+    public void setName(RoleType name) {
         this.name = name;
     }
 
@@ -49,7 +49,7 @@ public class Role implements Serializable {
     public Role() {
     }
 
-    public Role(Roles name) {
+    public Role(RoleType name) {
         this.name = name;
     }
 }

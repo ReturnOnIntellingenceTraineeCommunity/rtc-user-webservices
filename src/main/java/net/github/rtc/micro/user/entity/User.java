@@ -1,6 +1,5 @@
 package net.github.rtc.micro.user.entity;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,8 +40,6 @@ public class User {
     private String faculty;
 
     private String speciality;
-
-    //private String technologies;
 
     private Integer writtenEng;
 

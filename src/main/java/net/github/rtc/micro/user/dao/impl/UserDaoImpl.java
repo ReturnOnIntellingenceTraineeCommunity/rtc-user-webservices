@@ -1,16 +1,15 @@
 package net.github.rtc.micro.user.dao.impl;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
+import net.github.rtc.micro.user.entity.RoleType;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import net.github.rtc.micro.user.dao.UserDao;
-import net.github.rtc.micro.user.entity.Roles;
 import net.github.rtc.micro.user.entity.User;
 
 import java.util.List;
-//import roi.rtc.webservices.user.resources.*;
 
 /**
  * Created by Eugene on 19.03.14.
@@ -54,7 +53,7 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
     public boolean checkAdmin() {
         return ((Long) currentSession().createCriteria(User.class).setFetchMode("authorities", FetchMode.SELECT)
                 .createAlias("authorities", "authorities").add(Restrictions.disjunction()
-                        .add(Restrictions.eq("authorities.name", Roles.ROLE_ADMIN)))
+                        .add(Restrictions.eq("authorities.name", RoleType.ROLE_ADMIN)))
                 .setProjection(Projections.rowCount()).uniqueResult()) == 0;
     }
 }
