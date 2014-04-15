@@ -4,13 +4,18 @@ package net.github.rtc.micro.user;
  * Created by Chernichenko Bogdan on 14.03.14.
  */
 
-import com.yammer.dropwizard.ConfiguredBundle;
-import com.yammer.dropwizard.Service;
-import com.yammer.dropwizard.assets.AssetsBundle;
-import com.yammer.dropwizard.config.Bootstrap;
-import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.db.DatabaseConfiguration;
-import com.yammer.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.ConfiguredBundle;
+//import com.codahale.dropwizard.Service;
+//import com.codahale.dropwizard.assets.AssetsBundle;
+//import com.codahale.dropwizard.config.Bootstrap;
+//import com.codahale.dropwizard.config.Environment;
+//import com.codahale.dropwizard.db.DatabaseConfiguration;
+//import com.codahale.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.db.DatabaseConfiguration;
+import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import javafx.concurrent.Service;
 import net.github.rtc.micro.user.entity.RoleType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
