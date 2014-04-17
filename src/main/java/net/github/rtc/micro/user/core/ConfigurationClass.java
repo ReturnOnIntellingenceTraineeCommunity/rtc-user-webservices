@@ -3,7 +3,7 @@ package net.github.rtc.micro.user.core;
 /**
  * Created by Chernichenko Bogdan on 14.03.14.
  */
-import com.yammer.dropwizard.config.Configuration;
+import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 

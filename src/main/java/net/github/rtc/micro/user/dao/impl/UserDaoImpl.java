@@ -1,6 +1,6 @@
 package net.github.rtc.micro.user.dao.impl;
 
-import com.yammer.dropwizard.hibernate.AbstractDAO;
+import io.dropwizard.hibernate.AbstractDAO;
 import net.github.rtc.micro.user.entity.RoleType;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;

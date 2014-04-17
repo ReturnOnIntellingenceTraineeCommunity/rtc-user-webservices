@@ -1,6 +1,7 @@
 package net.github.rtc.micro.user;
 
-import com.yammer.metrics.core.HealthCheck;
+
+import com.codahale.metrics.health.HealthCheck;
 
 /**
  * Created by Chernichenko Bogdan on 19.03.14.
@@ -9,7 +10,6 @@ public class TemplateHealthCheck extends HealthCheck {
     private final String template;
 
     public TemplateHealthCheck(String template) {
-        super("template");
         this.template = template;
     }
     @Override

@@ -5,7 +5,7 @@ package net.github.rtc.micro.user.resource;
  */
 
 
-import com.yammer.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.hibernate.UnitOfWork;
 import net.github.rtc.micro.user.entity.User;
 
 import javax.ws.rs.*;

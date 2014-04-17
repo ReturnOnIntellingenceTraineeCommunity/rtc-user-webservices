@@ -1,8 +1,9 @@
 package net.github.rtc.micro.user.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.yammer.dropwizard.config.Configuration;
-import com.yammer.dropwizard.db.DatabaseConfiguration;
+import io.dropwizard.Configuration;
+
+import io.dropwizard.db.DataSourceFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -21,13 +22,14 @@ public class MainServiceConfiguration extends Configuration {
         this.messages = messages;
     }
 
+    public DataSourceFactory getDatabase() {
+        return database;
+    }
+
     @Valid
     @NotNull
     @JsonProperty
-    private DatabaseConfiguration database = new DatabaseConfiguration();
+    private DataSourceFactory database = new DataSourceFactory();
 
-    public DatabaseConfiguration getDatabase() {
-        return database;
-    }
 
 }

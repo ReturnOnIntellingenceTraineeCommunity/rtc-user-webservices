@@ -4,33 +4,31 @@ package net.github.rtc.micro.user;
  * Created by Chernichenko Bogdan on 14.03.14.
  */
 
+
+
+import io.dropwizard.Application;
 import io.dropwizard.ConfiguredBundle;
-//import com.codahale.dropwizard.Service;
-//import com.codahale.dropwizard.assets.AssetsBundle;
-//import com.codahale.dropwizard.config.Bootstrap;
-//import com.codahale.dropwizard.config.Environment;
-//import com.codahale.dropwizard.db.DatabaseConfiguration;
-//import com.codahale.dropwizard.hibernate.HibernateBundle;
-import io.dropwizard.db.DatabaseConfiguration;
+import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import javafx.concurrent.Service;
-import net.github.rtc.micro.user.entity.RoleType;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.context.internal.ManagedSessionContext;
 import net.github.rtc.micro.user.config.MainServiceConfiguration;
 import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.dao.impl.UserDaoImpl;
 import net.github.rtc.micro.user.entity.Role;
+import net.github.rtc.micro.user.entity.RoleType;
 import net.github.rtc.micro.user.entity.User;
 import net.github.rtc.micro.user.resource.UserResource;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import io.dropwizard.assets.AssetsBundle;
+import org.hibernate.context.internal.ManagedSessionContext;
 
 import java.util.Arrays;
 
 
-public class MainService extends Service<MainServiceConfiguration> {
+public class MainService extends Application<MainServiceConfiguration> {
 
     public static void main(String[] args) throws Exception {
         new MainService().run(args);
@@ -40,23 +38,25 @@ public class MainService extends Service<MainServiceConfiguration> {
             User.class) {
 
         @Override
-        public DatabaseConfiguration getDatabaseConfiguration(MainServiceConfiguration configuration) {
+        public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
             return configuration.getDatabase();
         }
     };
+
+
 
     @Override
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
         bootstrap.addBundle((ConfiguredBundle) hibernate);
+        bootstrap.addBundle(new MigrationsBundle<MainServiceConfiguration>() {
+        @Override
+        public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
+            return configuration.getDatabase();
+        }
+        });
     }
 
-    /**
-     * Prepare DB before start. If admin not fount will be add default.
-     *
-     * @param dao            userDao
-     * @param sessionFactory current session factory
-     */
     private void prepareAdminUser(final UserDao dao, final SessionFactory sessionFactory) {
         final Session session = sessionFactory.openSession();
         ManagedSessionContext.bind(session);
@@ -78,12 +78,11 @@ public class MainService extends Service<MainServiceConfiguration> {
     }
 
     @Override
-    public void run(MainServiceConfiguration configuration, Environment environment) {
+    public void run(MainServiceConfiguration configuration, Environment environment) throws Exception {
+
         final SessionFactory sessionFactory = hibernate.getSessionFactory();
         final UserDao dao = new UserDaoImpl(sessionFactory);
         prepareAdminUser(dao, sessionFactory);
-        environment.addResource(new UserResource(dao));
+        environment.jersey().register(new UserResource(dao));
     }
-
-
 }
