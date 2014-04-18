@@ -1,8 +1,11 @@
-http:
-  rootPath: /rtc-user-microservice/api/*
+server:
+  applicationConnectors:
+    - type: http
+      port: 8078
 
-  port: 8078
-  adminPort: 8178
+  adminConnectors:
+    - type: http
+      port: 8081
 
 database:
   driverClass: com.mysql.jdbc.Driver
@@ -13,22 +16,16 @@ database:
       hibernate.hbm2ddl.auto: create
 
 logging:
-  level: info
-  # Settings for logging to a file.
-  file:
-    # If true, write log statements to a file.
-    enabled: true
-    # Do not write log statements below this threshold to the file.
-    threshold: ALL
-    # The file to which current statements will be logged.
-    #currentLogFilename: /var/log/rtc-user-webservices/rtc-user-webservices.log
-    currentLogFilename: /var/log/rtc-user-webservices/rtc-user-webservices.log
-    # When the log file rotates, the archived log will be renamed to this and
-    # gzipped. The %d is replaced with the previous day (yyyy-MM-dd). Custom
-    # rolling windows can be created by passing a SimpleDateFormat-compatible
-    # format as an argument: "%d{yyyy-MM-dd-hh}".
-    archivedLogFilenamePattern: /var/log/rtc-user-webservices/rtc-user-webservices-%d.log.gz
-    # The number of archived files to keep.
-    archivedFileCount: 50
-    # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
-    timeZone: UTC
+# Permit DEBUG, INFO, WARN and ERROR messages to be logged by appenders.
+  level: INFO
+
+  appenders:
+    - type: console
+      threshold: ALL
+      target: stderr
+
+    - type: file
+      threshold: ALL
+      currentLogFilename: /var/log/rtc-user-webservices/rtc-user-webservices.log
+      archivedLogFilenamePattern: /var/log/rtc-user-webservices/rtc-user-webservices-%d.log.gz
+      archivedFileCount: 50
