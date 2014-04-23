@@ -14,7 +14,7 @@ import java.util.Collection;
 import net.github.rtc.micro.user.dao.UserDao;
 
 
-@Path("/users-web-service")
+@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 

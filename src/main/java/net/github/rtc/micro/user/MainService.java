@@ -44,7 +44,6 @@ public class MainService extends Application<MainServiceConfiguration> {
     };
 
 
-
     @Override
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));

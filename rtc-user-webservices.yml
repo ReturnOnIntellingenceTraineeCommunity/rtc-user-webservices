@@ -1,11 +1,10 @@
 server:
-  applicationConnectors:
-    - type: http
-      port: 8078
-
-  adminConnectors:
-    - type: http
-      port: 8081
+  type: simple
+  applicationContextPath: /rtc-user-microservice/api
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8078
 
 database:
   driverClass: com.mysql.jdbc.Driver
