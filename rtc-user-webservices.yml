@@ -12,7 +12,7 @@ database:
   password: register
   url: jdbc:mysql://localhost/registration?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
   properties:
-      hibernate.hbm2ddl.auto: create
+      hibernate.hbm2ddl.auto: update
 
 logging:
 # Permit DEBUG, INFO, WARN and ERROR messages to be logged by appenders.
