@@ -24,6 +24,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import io.dropwizard.assets.AssetsBundle;
 import org.hibernate.context.internal.ManagedSessionContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.util.Arrays;
 
@@ -80,7 +82,8 @@ public class MainService extends Application<MainServiceConfiguration> {
     public void run(MainServiceConfiguration configuration, Environment environment) throws Exception {
 
         final SessionFactory sessionFactory = hibernate.getSessionFactory();
-        final UserDao dao = new UserDaoImpl(sessionFactory);
+        final PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+        final UserDao dao = new UserDaoImpl(sessionFactory, passwordEncoder);
         prepareAdminUser(dao, sessionFactory);
         environment.jersey().register(new UserResource(dao));
     }

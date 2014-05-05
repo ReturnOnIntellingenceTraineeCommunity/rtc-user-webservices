@@ -8,6 +8,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.entity.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -16,8 +17,10 @@ import java.util.List;
  */
 public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
 
-    public UserDaoImpl(SessionFactory factory) {
+    private PasswordEncoder passwordEncoder;
+    public UserDaoImpl(SessionFactory factory, PasswordEncoder passwordEncoder) {
         super(factory);
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -35,6 +38,7 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
 
     @Override
     public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         persist(user);
     }
 
