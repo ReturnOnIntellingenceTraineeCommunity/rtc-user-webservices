@@ -32,7 +32,7 @@ public class UserResource {
     @UnitOfWork
     @Path("{id}")
     public User getUser(@PathParam("id") Integer id) {
-        return userDao.get(id);
+        return userDao.getById(id);
     }
 
     @GET
