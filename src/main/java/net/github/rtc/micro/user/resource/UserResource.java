@@ -6,12 +6,12 @@ package net.github.rtc.micro.user.resource;
 
 
 import io.dropwizard.hibernate.UnitOfWork;
+import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.entity.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
-import net.github.rtc.micro.user.dao.UserDao;
 
 
 @Path("/")
@@ -32,7 +32,7 @@ public class UserResource {
     @UnitOfWork
     @Path("{id}")
     public User getUser(@PathParam("id") Integer id) {
-        return userDao.getById(id);
+        return userDao.get(id);
     }
 
     @GET
