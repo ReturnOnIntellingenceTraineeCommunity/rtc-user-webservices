@@ -7,5 +7,5 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public enum RoleType {
-    ROLE_USER, ROLE_ADMIN;
+    ROLE_USER, ROLE_ADMIN, ROLE_EXPERT;
 }

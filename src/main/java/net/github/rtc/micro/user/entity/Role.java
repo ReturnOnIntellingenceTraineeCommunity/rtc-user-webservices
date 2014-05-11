@@ -29,11 +29,10 @@ public class Role implements Serializable {
     private RoleType name;
 
     @Column
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     public RoleType getName() {
         return name;
     }
-
     public void setName(RoleType name) {
         this.name = name;
     }
@@ -46,8 +45,7 @@ public class Role implements Serializable {
         return sb.toString();
     }
 
-    public Role() {
-    }
+    public Role() {}
 
     public Role(RoleType name) {
         this.name = name;

@@ -1,14 +1,13 @@
 package net.github.rtc.micro.user.dao.impl;
 
 import io.dropwizard.hibernate.AbstractDAO;
+import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.entity.RoleType;
+import net.github.rtc.micro.user.entity.User;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import net.github.rtc.micro.user.dao.UserDao;
-import net.github.rtc.micro.user.entity.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -17,10 +16,8 @@ import java.util.List;
  */
 public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
 
-    private PasswordEncoder passwordEncoder;
-    public UserDaoImpl(SessionFactory factory, PasswordEncoder passwordEncoder) {
+    public UserDaoImpl(SessionFactory factory) {
         super(factory);
-        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -38,7 +35,6 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
 
     @Override
     public void save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         persist(user);
     }
 
@@ -54,7 +50,7 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
     }
 
     @Override
-    public boolean checkAdmin() {
+    public boolean isAdmin() {
         return ((Long) currentSession().createCriteria(User.class).setFetchMode("authorities", FetchMode.SELECT)
                 .createAlias("authorities", "authorities").add(Restrictions.disjunction()
                         .add(Restrictions.eq("authorities.name", RoleType.ROLE_ADMIN)))

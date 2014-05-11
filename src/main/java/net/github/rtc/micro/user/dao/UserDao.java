@@ -6,21 +6,20 @@ import net.github.rtc.micro.user.entity.User;
 import java.util.List;
 
 /**
- *
  * @author dfa
  */
 public interface UserDao {
 
-    User get (Integer id);
+    User get(Integer id);
 
     User findByLogin(String email);
 
-    void save (User user);
+    void save(User user);
 
-    void delete (Integer id);
+    void delete(Integer id);
 
     List<User> findAll();
 
-    boolean checkAdmin();
+    boolean isAdmin();
 
 }

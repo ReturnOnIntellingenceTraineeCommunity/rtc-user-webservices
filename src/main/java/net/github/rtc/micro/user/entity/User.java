@@ -1,8 +1,12 @@
 package net.github.rtc.micro.user.entity;
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,36 +19,55 @@ import java.util.List;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @XmlRootElement
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+
+    private String code;
+
+    @NotEmpty
     private String surname;
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String middleName;
 
+    @NotEmpty
     private String phone;
 
+    @NotEmpty
     private String email;
 
+    @NotNull
     private Date birthDate;
 
+    @NotEmpty
     private String city;
 
+    @NotEmpty
     private String university;
 
+    @NotEmpty
     private String faculty;
 
+    @NotEmpty
     private String speciality;
 
+    @NotNull
     private Integer writtenEng;
 
+    @NotNull
     private Integer oralEng;
+
+    @NotEmpty
     private String note;
+
+    @NotEmpty
     private String password;
 
     /* Spring Security fields*/
@@ -102,16 +125,16 @@ public class User {
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getUniversity() {
@@ -218,6 +241,34 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    public String getCode() { return code; }
+
+    public void setCode(String code) { this.code = code; }
+
+    @Transient
+    public boolean isAdmin() {
+        for (Role role : authorities) {
+            if (role.getName() == RoleType.ROLE_ADMIN) return true;
+        }
+        return false;
+    }
+
+    @Transient
+    public boolean isUser() {
+        for (Role role : authorities) {
+            if (role.getName() == RoleType.ROLE_USER) return true;
+        }
+        return false;
+    }
+
+
+    @Transient
+    public boolean isExpert() {
+        for (Role role : authorities) {
+            if (role.getName() == RoleType.ROLE_EXPERT) return true;
+        }
+        return false;
+    }
 
     public User() {
 
