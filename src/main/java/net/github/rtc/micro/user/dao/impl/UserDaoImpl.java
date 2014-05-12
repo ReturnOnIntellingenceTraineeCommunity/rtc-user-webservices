@@ -22,7 +22,7 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
 
 
     @Override
-    public User get(Integer id) {
+    public User getById(Integer id) {
         return get(id);
     }
 

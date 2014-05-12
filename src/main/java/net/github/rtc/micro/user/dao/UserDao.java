@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserDao {
 
-    User get(Integer id);
+    User getById(Integer id);
 
     User findByLogin(String email);
 
