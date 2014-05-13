@@ -77,6 +77,17 @@
             <artifactId>jdbi</artifactId>
             <version>2.0.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -120,7 +131,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.github.rtc.micro.user.MainService</mainClass>
+                                    <mainClass>net.github.rtc.micro.user.UserService</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -132,7 +143,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>net.github.rtc.micro.user.MainService</mainClass>
+                    <mainClass>net.github.rtc.micro.user.UserService</mainClass>
                     <arguments>
                         <argument>server</argument>
                         <argument>${project.artifactId}.yml</argument>

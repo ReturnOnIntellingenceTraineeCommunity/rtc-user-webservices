@@ -34,14 +34,22 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
     }
 
     @Override
+    public User findByCode(String code) {
+        return (User) currentSession().createCriteria(User.class)
+                .add(Restrictions.eq("code", code)).uniqueResult();
+    }
+
+    @Override
     public void save(User user) {
         persist(user);
     }
 
     @Override
-    public void delete(Integer id) {
-        User user = get(id);
-        currentSession().delete(user);
+    public void delete(String code) {
+        User user = findByCode(code);
+        if (user != null) {
+            currentSession().delete(user);
+        }
     }
 
     @Override
@@ -50,10 +58,23 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
     }
 
     @Override
+    public boolean exist(String code) {
+        return ((Long) currentSession().createQuery("select count(*) from User u where u.code = :code")
+                .setParameter("code", code).uniqueResult()) != 0;
+    }
+
+    @Override
     public boolean isAdmin() {
         return ((Long) currentSession().createCriteria(User.class).setFetchMode("authorities", FetchMode.SELECT)
                 .createAlias("authorities", "authorities").add(Restrictions.disjunction()
                         .add(Restrictions.eq("authorities.name", RoleType.ROLE_ADMIN)))
                 .setProjection(Projections.rowCount()).uniqueResult()) == 0;
+    }
+
+
+    @Override
+    public User merge(User user) {
+        currentSession().merge(user);
+        return user;
     }
 }

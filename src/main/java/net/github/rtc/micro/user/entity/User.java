@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Chernichenko Bogdan on 18.03.14.
@@ -23,8 +23,8 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Integer id;
-
 
     private String code;
 
@@ -58,44 +58,34 @@ public class User implements Serializable {
     @NotEmpty
     private String speciality;
 
-    @NotNull
-    private Integer writtenEng;
-
-    @NotNull
-    private Integer oralEng;
-
     @NotEmpty
     private String note;
 
     @NotEmpty
     private String password;
 
+    private String gender;
+
+    private String progLanguages;
+
+    private String english;
+
     /* Spring Security fields*/
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles_refs",
-            joinColumns = {@JoinColumn(name = "ROLE_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "id")})
-    private List<Role> authorities;
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="user_roles")
+    private Set<Role> authorities;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
-    public List<Role> getAuthorities() {
-        return authorities;
-    }
+    public Set<Role> getAuthorities() { return authorities; }
 
-    public void setAuthorities(List<Role> authorities) {
-        this.authorities = authorities;
-    }
+    public void setAuthorities(Set<Role> authorities) { this.authorities = authorities; }
 
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
+    public boolean isAccountNonExpired() { return accountNonExpired; }
 
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
+    public void setAccountNonExpired(boolean accountNonExpired) { this.accountNonExpired = accountNonExpired;}
 
     public boolean isAccountNonLocked() {
         return accountNonLocked;
@@ -159,22 +149,6 @@ public class User implements Serializable {
 
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
-    }
-
-    public Integer getWrittenEng() {
-        return writtenEng;
-    }
-
-    public void setWrittenEng(Integer writtenEng) {
-        this.writtenEng = writtenEng;
-    }
-
-    public Integer getOralEng() {
-        return oralEng;
-    }
-
-    public void setOralEng(Integer oralEng) {
-        this.oralEng = oralEng;
     }
 
     public String getNote() {
@@ -241,40 +215,39 @@ public class User implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public String getCode() { return code; }
-
-    public void setCode(String code) { this.code = code; }
-
-    @Transient
-    public boolean isAdmin() {
-        for (Role role : authorities) {
-            if (role.getName() == RoleType.ROLE_ADMIN) return true;
-        }
-        return false;
+    public String getCode() {
+        return code;
     }
 
-    @Transient
-    public boolean isUser() {
-        for (Role role : authorities) {
-            if (role.getName() == RoleType.ROLE_USER) return true;
-        }
-        return false;
+    public void setCode(String code) {
+        this.code = code;
     }
 
+    public String getGender() { return gender; }
 
-    @Transient
-    public boolean isExpert() {
-        for (Role role : authorities) {
-            if (role.getName() == RoleType.ROLE_EXPERT) return true;
-        }
-        return false;
+    public void setGender(String gender) { this.gender = gender; }
+
+    public String getProgLanguages() { return progLanguages; }
+
+    public void setProgLanguages(String progLanguages) {
+        this.progLanguages = progLanguages;
     }
 
-    public User() {
-
+    public String getEnglish() {
+        return english;
     }
 
-    public User(String surname, String name, String middleName, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality, Integer writtenEng, Integer oralEng, String note, String password, List<Role> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+    public void setEnglish(String english) {
+        this.english = english;
+    }
+
+    public User() {}
+
+    public User(String surname, String name, String middleName, String phone, String email,
+                Date birthDate, String city, String university, String faculty,
+                String speciality, String note, String password, Set<Role> authorities,
+                boolean accountNonExpired, boolean accountNonLocked,
+                boolean credentialsNonExpired, boolean enabled) {
         this.surname = surname;
         this.name = name;
         this.middleName = middleName;
@@ -285,8 +258,6 @@ public class User implements Serializable {
         this.university = university;
         this.faculty = faculty;
         this.speciality = speciality;
-        this.writtenEng = writtenEng;
-        this.oralEng = oralEng;
         this.note = note;
         this.password = password;
         this.authorities = authorities;
@@ -318,8 +289,6 @@ public class User implements Serializable {
         sb.append(", university='").append(university).append('\'');
         sb.append(", faculty='").append(faculty).append('\'');
         sb.append(", speciality='").append(speciality).append('\'');
-        sb.append(", writtenEng=").append(writtenEng);
-        sb.append(", oralEng=").append(oralEng);
         sb.append(", note='").append(note).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", authorities=").append(authorities);

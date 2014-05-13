@@ -12,18 +12,10 @@ import java.io.Serializable;
 @Table(name = "user_roles", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 @XmlRootElement
 public class Role implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="role_id")
     private Integer id;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     @NotNull
     private RoleType name;
@@ -37,17 +29,21 @@ public class Role implements Serializable {
         this.name = name;
     }
 
+    public Role() {}
+    public Role(RoleType name) { this.name = name; }
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Role{");
         sb.append("name='").append(name);
         sb.append('}');
         return sb.toString();
-    }
-
-    public Role() {}
-
-    public Role(RoleType name) {
-        this.name = name;
     }
 }

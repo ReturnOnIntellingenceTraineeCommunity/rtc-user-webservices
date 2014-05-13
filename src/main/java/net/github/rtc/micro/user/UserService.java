@@ -5,9 +5,9 @@ package net.github.rtc.micro.user;
  */
 
 
-
 import io.dropwizard.Application;
 import io.dropwizard.ConfiguredBundle;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -22,21 +22,20 @@ import net.github.rtc.micro.user.entity.User;
 import net.github.rtc.micro.user.resource.UserResource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import io.dropwizard.assets.AssetsBundle;
 import org.hibernate.context.internal.ManagedSessionContext;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 
-public class MainService extends Application<MainServiceConfiguration> {
+public class UserService extends Application<MainServiceConfiguration> {
 
     public static void main(String[] args) throws Exception {
-        new MainService().run(args);
+        new UserService().run(args);
     }
 
-    private final HibernateBundle<MainServiceConfiguration> hibernate = new HibernateBundle<MainServiceConfiguration>(Role.class,
-            User.class) {
-
+    private final HibernateBundle<MainServiceConfiguration>
+            hibernate = new HibernateBundle<MainServiceConfiguration>(Role.class,User.class) {
         @Override
         public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
             return configuration.getDatabase();
@@ -46,14 +45,20 @@ public class MainService extends Application<MainServiceConfiguration> {
 
     @Override
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
+
+        //Quartz config///
+        //SchedulerFactory sf = new StdSchedulerFactory(config.getSchedulerFactoryProperties());
+        //QuartzManager qm = new QuartzManager(sf); // A Dropwizard Managed Object
+        //env.manage(qm); // Assign the management of the object to the Service
+        //env.addHealthCheck(new QuartzHealthCheck(qm)); /
+
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
         bootstrap.addBundle((ConfiguredBundle) hibernate);
         bootstrap.addBundle(new MigrationsBundle<MainServiceConfiguration>() {
         @Override
         public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
             return configuration.getDatabase();
-        }
-        });
+        }});
     }
 
     private void prepareAdminUser(final UserDao dao, final SessionFactory sessionFactory) {
@@ -62,8 +67,8 @@ public class MainService extends Application<MainServiceConfiguration> {
         session.beginTransaction();
         if (dao.isAdmin()) {
             session.getTransaction().commit();
-            User admin = new User("Test", "Test", "Test", "test@rtcapp.dp.ua", "testpass");
-            admin.setAuthorities(Arrays.asList(new Role(RoleType.ROLE_ADMIN), new Role(RoleType.ROLE_USER)));
+            User admin = new User("Test", "Test", "Test", "test@rtcapp.dp.ua", "de1082b5e436b41daa4906ceeca7f4223870ed68c2251978d5e7ad7fb1c2e55fcaa68fba3ef5b0be");
+            admin.setAuthorities(new HashSet<Role>(Arrays.asList(new Role(RoleType.ROLE_ADMIN))));
             session.beginTransaction();
             try {
                 dao.save(admin);

@@ -14,11 +14,29 @@ public interface UserDao {
 
     User findByLogin(String email);
 
+    User findByCode(String code);
+
     void save(User user);
 
-    void delete(Integer id);
+    void delete(String code);
 
     List<User> findAll();
+
+    /**
+     * Check user code exist
+     *
+     * @param code user code
+     * @return true if exist, false - not exist
+     */
+    boolean exist(String code);
+
+    /**
+     * SaveOrUpdate with merge associated entities
+     *
+     * @param user user object
+     * @return user object with updated keys
+     */
+    User merge(User user);
 
     boolean isAdmin();
 
