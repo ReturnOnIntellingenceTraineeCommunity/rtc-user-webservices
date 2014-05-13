@@ -26,6 +26,7 @@ import io.dropwizard.assets.AssetsBundle;
 import org.hibernate.context.internal.ManagedSessionContext;
 
 import java.util.Arrays;
+import java.util.Date;
 
 
 public class MainService extends Application<MainServiceConfiguration> {
@@ -62,7 +63,8 @@ public class MainService extends Application<MainServiceConfiguration> {
         session.beginTransaction();
         if (dao.isAdmin()) {
             session.getTransaction().commit();
-            User admin = new User("Test", "Test", "Test", "test@rtcapp.dp.ua", "testpass");
+            User admin = new User("Test", "Test", "Test","test@rtcapp.dp.ua","testpass","09520212121",new Date(2014,12,12),
+                    "Dnepr","University","faculty","specialty",10,10,"some note");
             admin.setAuthorities(Arrays.asList(new Role(RoleType.ROLE_ADMIN), new Role(RoleType.ROLE_USER)));
             session.beginTransaction();
             try {

@@ -270,9 +270,6 @@ public class User implements Serializable {
         return false;
     }
 
-    public User() {
-
-    }
 
     public User(String surname, String name, String middleName, String phone, String email, Date birthDate, String city, String university, String faculty, String speciality, Integer writtenEng, Integer oralEng, String note, String password, List<Role> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.surname = surname;
@@ -296,12 +293,22 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public User(String middleName, String surname, String name, String email, String password) {
+
+    public User(String middleName, String surname, String name, String email, String password,String phone,Date birthDate,String city,String university,String faculty,String speciality,Integer oralEng,Integer writtenEng,String note) {
         this.middleName = middleName;
         this.surname = surname;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.phone=phone;
+        this.birthDate=birthDate;
+        this.city=city;
+        this.university=university;
+        this.faculty=faculty;
+        this.speciality=speciality;
+        this.oralEng=oralEng;
+        this.writtenEng=writtenEng;
+        this.note=note;
     }
 
     @Override
