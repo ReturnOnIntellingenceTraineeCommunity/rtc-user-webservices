@@ -25,7 +25,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.context.internal.ManagedSessionContext;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 
 public class UserService extends Application<MainServiceConfiguration> {
@@ -68,7 +67,7 @@ public class UserService extends Application<MainServiceConfiguration> {
         if (dao.isAdmin()) {
             session.getTransaction().commit();
             User admin = new User("Test", "Test", "Test", "test@rtcapp.dp.ua", "de1082b5e436b41daa4906ceeca7f4223870ed68c2251978d5e7ad7fb1c2e55fcaa68fba3ef5b0be");
-            admin.setAuthorities(new HashSet<Role>(Arrays.asList(new Role(RoleType.ROLE_ADMIN))));
+            admin.setAuthorities(Arrays.asList(new Role(RoleType.ROLE_ADMIN)));
             session.beginTransaction();
             try {
                 dao.save(admin);

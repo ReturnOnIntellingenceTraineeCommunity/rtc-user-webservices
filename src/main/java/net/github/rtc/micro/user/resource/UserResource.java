@@ -40,8 +40,7 @@ public class UserResource {
         User user = userDao.findByCode(code);
         if (user == null) {
             RuntimeException ex = new WebApplicationException(Response.Status.NOT_FOUND);
-            //TO DO
-            // LOG.error("Exception: ", ex);
+            LOG.error("Exception: ", ex);
             throw ex;
         }
         return user;
@@ -59,9 +58,9 @@ public class UserResource {
     public User addUser(User user) {
         LOG.info("User INFO: {}", user.toString());
         String code;
-        //do {
+        do {
             code = UUID.randomUUID().toString();
-        //} while (userDao.exist(code));
+        } while (userDao.exist(code));
         user.setCode(code);
         try {
             return userDao.merge(user);

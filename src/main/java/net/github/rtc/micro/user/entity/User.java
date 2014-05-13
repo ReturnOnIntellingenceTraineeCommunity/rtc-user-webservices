@@ -1,6 +1,7 @@
 package net.github.rtc.micro.user.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by Chernichenko Bogdan on 18.03.14.
@@ -21,6 +22,7 @@ import java.util.Set;
 @XmlRootElement
 public class User implements Serializable {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
@@ -72,16 +74,16 @@ public class User implements Serializable {
 
     /* Spring Security fields*/
     @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="user_roles")
-    private Set<Role> authorities;
+    @JoinColumn(name="user_authorities")
+    private List<Role> authorities;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
-    public Set<Role> getAuthorities() { return authorities; }
+    public List<Role> getAuthorities() { return authorities; }
 
-    public void setAuthorities(Set<Role> authorities) { this.authorities = authorities; }
+    public void setAuthorities(List<Role> authorities) { this.authorities = authorities; }
 
     public boolean isAccountNonExpired() { return accountNonExpired; }
 
@@ -245,7 +247,7 @@ public class User implements Serializable {
 
     public User(String surname, String name, String middleName, String phone, String email,
                 Date birthDate, String city, String university, String faculty,
-                String speciality, String note, String password, Set<Role> authorities,
+                String speciality, String note, String password, List<Role> authorities,
                 boolean accountNonExpired, boolean accountNonLocked,
                 boolean credentialsNonExpired, boolean enabled) {
         this.surname = surname;
