@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job-scheduling-data
+        xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData
+
+http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
+
+        version="1.8">
+
+    <schedule>
+        <job>
+            <name>FirstJob</name>
+            <group>GroupDummy</group>
+            <description>This is FirstJob</description>
+            <job-class>net.github.rtc.micro.user.job.UserExportJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>dummyTrigger</name>
+                <job-name>FirstJob</job-name>
+                <job-group>GroupDummy</job-group>
+                <!-- It will run every 2 seconds -->
+                <cron-expression>0/2 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+</job-scheduling-data>

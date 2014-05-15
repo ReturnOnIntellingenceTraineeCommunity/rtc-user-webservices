@@ -1,4 +1,4 @@
-package net.github.rtc.micro.user.jobs;
+package net.github.rtc.micro.user.job;
 
 import com.codahale.metrics.health.HealthCheck;
 

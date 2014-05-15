@@ -19,10 +19,14 @@ import net.github.rtc.micro.user.dao.impl.UserDaoImpl;
 import net.github.rtc.micro.user.entity.Role;
 import net.github.rtc.micro.user.entity.RoleType;
 import net.github.rtc.micro.user.entity.User;
+import net.github.rtc.micro.user.job.QuartzHealthCheck;
+import net.github.rtc.micro.user.job.QuartzManager;
 import net.github.rtc.micro.user.resource.UserResource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.context.internal.ManagedSessionContext;
+import org.quartz.SchedulerFactory;
+import org.quartz.impl.StdSchedulerFactory;
 
 import java.util.Arrays;
 
@@ -45,11 +49,6 @@ public class UserService extends Application<MainServiceConfiguration> {
     @Override
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
 
-        //Quartz config///
-        //SchedulerFactory sf = new StdSchedulerFactory(config.getSchedulerFactoryProperties());
-        //QuartzManager qm = new QuartzManager(sf); // A Dropwizard Managed Object
-        //env.manage(qm); // Assign the management of the object to the Service
-        //env.addHealthCheck(new QuartzHealthCheck(qm)); /
 
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
         bootstrap.addBundle((ConfiguredBundle) hibernate);
@@ -86,5 +85,12 @@ public class UserService extends Application<MainServiceConfiguration> {
         final UserDao dao = new UserDaoImpl(sessionFactory);
         prepareAdminUser(dao, sessionFactory);
         environment.jersey().register(new UserResource(dao));
+
+
+        SchedulerFactory sf = new StdSchedulerFactory(configuration.getSchedulerFactoryProperties());
+        QuartzManager qm = new QuartzManager(sf);
+        environment.lifecycle().manage(qm);
+        QuartzHealthCheck healthCheck = new QuartzHealthCheck();
+        environment.healthChecks().register("quartz", healthCheck);
     }
 }

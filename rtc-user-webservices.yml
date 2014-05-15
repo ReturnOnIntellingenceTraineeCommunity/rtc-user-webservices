@@ -8,11 +8,11 @@ server:
 
 database:
   driverClass: com.mysql.jdbc.Driver
-  user: rtc_user_reg
-  password: register
-  url: jdbc:mysql://localhost/registration?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
+  user: root
+  password: 1111
+  url: jdbc:mysql://localhost/user?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
   properties:
-      hibernate.hbm2ddl.auto: update
+      hibernate.hbm2ddl.auto: create-drop
 
 logging:
 # Permit DEBUG, INFO, WARN and ERROR messages to be logged by appenders.
@@ -28,3 +28,12 @@ logging:
       currentLogFilename: /var/log/rtc-user-webservices/rtc-user-webservices.log
       archivedLogFilenamePattern: /var/log/rtc-user-webservices/rtc-user-webservices-%d.log.gz
       archivedFileCount: 50
+
+quartzSettings:
+  instanceName: MyQuartzScheduler
+  threadPoolClass: org.quartz.simpl.SimpleThreadPool
+  threadCount: 5
+  threadPriority: 5
+  jobStoreClass: org.quartz.simpl.RAMJobStore
+   # A comma separated list of XML files
+  jobFiles: job.xml
