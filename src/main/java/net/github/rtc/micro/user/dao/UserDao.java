@@ -16,7 +16,7 @@ public interface UserDao {
 
     User findByCode(String code);
 
-    void save(User user);
+    User save(User user);
 
     void delete(String code);
 
@@ -39,5 +39,4 @@ public interface UserDao {
     User merge(User user);
 
     boolean isAdmin();
-
 }

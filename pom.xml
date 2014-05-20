@@ -50,28 +50,27 @@
             <artifactId>dropwizard-assets</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>stringtemplate</artifactId>
             <version>${antlr.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.jdbi</groupId>
             <artifactId>jdbi</artifactId>
@@ -87,6 +86,22 @@
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz-jobs</artifactId>
             <version>2.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-persist</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.1</version>
         </dependency>
     </dependencies>
 

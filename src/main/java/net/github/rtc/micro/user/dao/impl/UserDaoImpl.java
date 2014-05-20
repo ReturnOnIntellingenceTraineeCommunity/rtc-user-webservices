@@ -1,71 +1,75 @@
 package net.github.rtc.micro.user.dao.impl;
 
-import io.dropwizard.hibernate.AbstractDAO;
+import com.google.inject.Provider;
+import com.google.inject.persist.Transactional;
 import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.entity.RoleType;
 import net.github.rtc.micro.user.entity.User;
 import org.hibernate.FetchMode;
-import org.hibernate.SessionFactory;
+import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * Created by Eugene on 19.03.14.
  */
-public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
+public class UserDaoImpl implements UserDao {
 
-    public UserDaoImpl(SessionFactory factory) {
-        super(factory);
-    }
-
+    @Inject
+    private Provider<EntityManager> entityManagerProvider;
 
     @Override
     public User getById(Integer id) {
-        return get(id);
+        return entityManagerProvider.get().find(User.class, id);
     }
 
     @Override
     public User findByLogin(String email) {
-        return (User) currentSession().
+        return (User) ((Session)entityManagerProvider.get().getDelegate()).
                 createCriteria(User.class).
                 add(Restrictions.eq("email", email)).uniqueResult();
     }
 
     @Override
     public User findByCode(String code) {
-        return (User) currentSession().createCriteria(User.class)
+        return (User) ((Session)entityManagerProvider.get().getDelegate()).createCriteria(User.class)
                 .add(Restrictions.eq("code", code)).uniqueResult();
     }
 
     @Override
-    public void save(User user) {
-        persist(user);
+    @Transactional
+    public User save(User user) {
+        entityManagerProvider.get().persist(user);
+        return  user;
     }
 
     @Override
     public void delete(String code) {
         User user = findByCode(code);
         if (user != null) {
-            currentSession().delete(user);
+            entityManagerProvider.get().remove(user);
         }
     }
 
     @Override
+    @Transactional
     public List<User> findAll() {
-        return currentSession().createCriteria(User.class).list();
+        return entityManagerProvider.get().createQuery("select u from User u").getResultList();
     }
 
     @Override
     public boolean exist(String code) {
-        return ((Long) currentSession().createQuery("select count(*) from User u where u.code = :code")
-                .setParameter("code", code).uniqueResult()) != 0;
+        return ((Long) entityManagerProvider.get().createQuery("select count(*) from User u where u.code = :code")
+                .setParameter("code", code).getSingleResult()) != 0;
     }
 
     @Override
     public boolean isAdmin() {
-        return ((Long) currentSession().createCriteria(User.class).setFetchMode("authorities", FetchMode.SELECT)
+        return ((Long)((Session)entityManagerProvider.get().getDelegate()).createCriteria(User.class).setFetchMode("authorities", FetchMode.SELECT)
                 .createAlias("authorities", "authorities").add(Restrictions.disjunction()
                         .add(Restrictions.eq("authorities.name", RoleType.ROLE_ADMIN)))
                 .setProjection(Projections.rowCount()).uniqueResult()) == 0;
@@ -74,7 +78,7 @@ public class UserDaoImpl extends AbstractDAO<User> implements UserDao {
 
     @Override
     public User merge(User user) {
-        currentSession().merge(user);
+        entityManagerProvider.get().merge(user);
         return user;
     }
 }

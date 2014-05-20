@@ -18,16 +18,9 @@ public class Role implements Serializable {
     private Integer id;
 
     @NotNull
-    private RoleType name;
-
     @Column
     @Enumerated(EnumType.STRING)
-    public RoleType getName() {
-        return name;
-    }
-    public void setName(RoleType name) {
-        this.name = name;
-    }
+    private RoleType name;
 
     public Role() {}
     public Role(RoleType name) { this.name = name; }
@@ -37,6 +30,13 @@ public class Role implements Serializable {
     }
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public RoleType getName() {
+        return name;
+    }
+    public void setName(RoleType name) {
+        this.name = name;
     }
 
     @Override

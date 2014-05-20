@@ -22,9 +22,6 @@ public class QuartzHealthCheck extends HealthCheck {
      */
     @Override
     protected Result check() throws Exception {
-        if (!quartzManager.isHealthy())
-            return Result.unhealthy(quartzManager.getState());
-        else
             return Result.healthy();
     }
 }

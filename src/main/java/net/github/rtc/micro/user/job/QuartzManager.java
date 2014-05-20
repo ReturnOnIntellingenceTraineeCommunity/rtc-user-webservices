@@ -7,6 +7,8 @@ import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.matchers.EverythingMatcher;
 
+import javax.inject.Inject;
+
 /**
  * Created by ivan on 13.05.14.
  */
@@ -15,16 +17,17 @@ public class QuartzManager implements Managed {
     private Scheduler scheduler;
     private QuartzJobMonitor jobMonitor;
 
-    public QuartzManager(SchedulerFactory sf) throws SchedulerException {
-        scheduler = sf.getScheduler();
+    @Inject
+    public QuartzManager(SchedulerFactory sf, final GuiceJobFactory jobFactory) throws SchedulerException {
         jobMonitor = new QuartzJobMonitor();
+        scheduler = sf.getScheduler();
+        scheduler.setJobFactory(jobFactory);
     }
 
     @Override
     public void start() throws Exception {
-
         scheduler.getListenerManager().addJobListener(
-                new QuartzJobMonitor(), EverythingMatcher.allJobs());
+                jobMonitor, EverythingMatcher.allJobs());
         scheduler.start();
        }
 
@@ -32,18 +35,5 @@ public class QuartzManager implements Managed {
     public void stop() throws Exception {
         scheduler.getListenerManager().removeJobListener(jobMonitor.getName());
         scheduler.shutdown(true);
-    }
-
-
-    public boolean isHealthy(){
-        return true;
-        //return jobMonitor.isHealthy();
-    }
-
-    public String getState() {
-        return "Hello";
-       //TO DO
-       //return null;
-       //return "Scheduler: " + schedulerMonitor.getState() + " Jobs:" + jobMonitor.getState();
     }
 }

@@ -1,15 +1,13 @@
 package net.github.rtc.micro.user;
 
-/**
- * Created by Chernichenko Bogdan on 14.03.14.
- */
-
-
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.persist.PersistFilter;
+import com.google.inject.persist.jpa.JpaPersistModule;
 import io.dropwizard.Application;
-import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -28,35 +26,51 @@ import org.hibernate.context.internal.ManagedSessionContext;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
-import java.util.Arrays;
+import javax.servlet.DispatcherType;
+import java.util.*;
 
-
+/**
+ * Created by Chernichenko Bogdan on 14.03.14.
+ */
 public class UserService extends Application<MainServiceConfiguration> {
 
     public static void main(String[] args) throws Exception {
         new UserService().run(args);
     }
 
-    private final HibernateBundle<MainServiceConfiguration>
-            hibernate = new HibernateBundle<MainServiceConfiguration>(Role.class,User.class) {
-        @Override
-        public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
-            return configuration.getDatabase();
-        }
-    };
-
-
     @Override
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
-
-
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
-        bootstrap.addBundle((ConfiguredBundle) hibernate);
         bootstrap.addBundle(new MigrationsBundle<MainServiceConfiguration>() {
         @Override
         public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
             return configuration.getDatabase();
         }});
+    }
+
+
+    @Override
+    public void run(MainServiceConfiguration configuration, Environment environment) throws Exception {
+
+        final SchedulerFactory sf = new StdSchedulerFactory(configuration.getSchedulerFactoryProperties());
+
+        Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(SchedulerFactory.class).toInstance(sf);
+                bind(UserDao.class).to(UserDaoImpl.class);
+            }
+        }, createJpaPersistModule(configuration.getDatabase()));
+
+        environment.jersey().register(injector.getInstance(UserResource.class));
+        environment.servlets().addFilter("JPAFilter", injector.getInstance(PersistFilter.class)).
+                addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+
+        QuartzManager qm = injector.getInstance(QuartzManager.class);
+        environment.lifecycle().manage(qm);
+
+        QuartzHealthCheck healthCheck = new QuartzHealthCheck();
+        environment.healthChecks().register("quartz", healthCheck);
     }
 
     private void prepareAdminUser(final UserDao dao, final SessionFactory sessionFactory) {
@@ -65,8 +79,11 @@ public class UserService extends Application<MainServiceConfiguration> {
         session.beginTransaction();
         if (dao.isAdmin()) {
             session.getTransaction().commit();
-            User admin = new User("Test", "Test", "Test", "test@rtcapp.dp.ua", "de1082b5e436b41daa4906ceeca7f4223870ed68c2251978d5e7ad7fb1c2e55fcaa68fba3ef5b0be");
+            User admin = new User("Test", "Test", "Test", "1111","test@rtcapp.dp.ua",
+                    new Date(), "DNK", "DNU", "FPM", "PZ", "none", "", null,
+                    true, true, true, true);
             admin.setAuthorities(Arrays.asList(new Role(RoleType.ROLE_ADMIN)));
+            admin.setCode(UUID.randomUUID().toString());
             session.beginTransaction();
             try {
                 dao.save(admin);
@@ -78,19 +95,15 @@ public class UserService extends Application<MainServiceConfiguration> {
         }
     }
 
-    @Override
-    public void run(MainServiceConfiguration configuration, Environment environment) throws Exception {
-
-        final SessionFactory sessionFactory = hibernate.getSessionFactory();
-        final UserDao dao = new UserDaoImpl(sessionFactory);
-        prepareAdminUser(dao, sessionFactory);
-        environment.jersey().register(new UserResource(dao));
-
-
-        SchedulerFactory sf = new StdSchedulerFactory(configuration.getSchedulerFactoryProperties());
-        QuartzManager qm = new QuartzManager(sf);
-        environment.lifecycle().manage(qm);
-        QuartzHealthCheck healthCheck = new QuartzHealthCheck();
-        environment.healthChecks().register("quartz", healthCheck);
+    private JpaPersistModule createJpaPersistModule(DataSourceFactory conf) {
+        Properties props = new Properties();
+        props.put("javax.persistence.jdbc.url", conf.getUrl());
+        props.put("javax.persistence.jdbc.user", conf.getUser());
+        props.put("javax.persistence.jdbc.password", conf.getPassword());
+        props.put("javax.persistence.jdbc.driver", conf.getDriverClass());
+        JpaPersistModule jpaModule = new JpaPersistModule("Default");
+        jpaModule.properties(props);
+        return jpaModule;
     }
+
 }

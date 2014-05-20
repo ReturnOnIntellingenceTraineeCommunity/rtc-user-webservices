@@ -46,6 +46,7 @@ public class User implements Serializable {
     private String email;
 
     @NotNull
+    @Temporal(value = TemporalType.DATE)
     private Date birthDate;
 
     @NotEmpty
@@ -73,7 +74,7 @@ public class User implements Serializable {
     private String english;
 
     /* Spring Security fields*/
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="user_authorities")
     private List<Role> authorities;
     private boolean accountNonExpired = true;
