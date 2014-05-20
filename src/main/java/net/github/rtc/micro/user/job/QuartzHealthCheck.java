@@ -6,7 +6,8 @@ import com.codahale.metrics.health.HealthCheck;
  * Created by ivan on 13.05.14.
  */
 public class QuartzHealthCheck extends HealthCheck {
-    private QuartzManager quartzManager;
+
+    //private QuartzManager quartzManager;
 
 
     //TO DO

@@ -14,20 +14,15 @@ import io.dropwizard.setup.Environment;
 import net.github.rtc.micro.user.config.MainServiceConfiguration;
 import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.dao.impl.UserDaoImpl;
-import net.github.rtc.micro.user.entity.Role;
-import net.github.rtc.micro.user.entity.RoleType;
-import net.github.rtc.micro.user.entity.User;
 import net.github.rtc.micro.user.job.QuartzHealthCheck;
 import net.github.rtc.micro.user.job.QuartzManager;
 import net.github.rtc.micro.user.resource.UserResource;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.context.internal.ManagedSessionContext;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
 import javax.servlet.DispatcherType;
-import java.util.*;
+import java.util.EnumSet;
+import java.util.Properties;
 
 /**
  * Created by Chernichenko Bogdan on 14.03.14.
@@ -73,7 +68,7 @@ public class UserService extends Application<MainServiceConfiguration> {
         environment.healthChecks().register("quartz", healthCheck);
     }
 
-    private void prepareAdminUser(final UserDao dao, final SessionFactory sessionFactory) {
+   /* private void prepareAdminUser(final UserDao dao, final SessionFactory sessionFactory) {
         final Session session = sessionFactory.openSession();
         ManagedSessionContext.bind(session);
         session.beginTransaction();
@@ -93,7 +88,7 @@ public class UserService extends Application<MainServiceConfiguration> {
             }
             session.close();
         }
-    }
+    }    */
 
     private JpaPersistModule createJpaPersistModule(DataSourceFactory conf) {
         Properties props = new Properties();
