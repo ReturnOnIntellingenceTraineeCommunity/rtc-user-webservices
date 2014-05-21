@@ -1,6 +1,5 @@
 package net.github.rtc.micro.user.resource;
 
-import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
 import net.github.rtc.micro.user.dao.RoleDao;
 import net.github.rtc.micro.user.entity.Role;
@@ -27,7 +26,6 @@ public class RoleResource {
     }
 
     @GET
-    @UnitOfWork
     @Path("{id}")
     public Role get(@PathParam("id") IntParam id) {
         Role role = dao.get(id.get());
@@ -40,14 +38,12 @@ public class RoleResource {
     }
 
     @GET
-    @UnitOfWork
     public Collection<Role> findAll() {
         return dao.findAll();
     }
 
 
     @POST
-    @UnitOfWork
     public Role create(Role role) {
         if (dao.exist(role)) {
             return null;
@@ -57,7 +53,6 @@ public class RoleResource {
 
 
     @PUT
-    @UnitOfWork
     @Path("{id}")
     public Role update(@PathParam("id") IntParam id, Role role) {
         Role oldRole = dao.get(id.get());
@@ -70,7 +65,6 @@ public class RoleResource {
 
 
     @DELETE
-    @UnitOfWork
     @Path("{id}")
     public void delete(@PathParam("id") IntParam id) {
         dao.delete(id.get());
