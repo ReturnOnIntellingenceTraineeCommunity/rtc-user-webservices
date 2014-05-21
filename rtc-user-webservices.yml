@@ -28,12 +28,3 @@ logging:
       currentLogFilename: /var/log/rtc-user-webservices/rtc-user-webservices.log
       archivedLogFilenamePattern: /var/log/rtc-user-webservices/rtc-user-webservices-%d.log.gz
       archivedFileCount: 50
-
-quartzSettings:
-  instanceName: MyQuartzScheduler
-  threadPoolClass: org.quartz.simpl.SimpleThreadPool
-  threadCount: 5
-  threadPriority: 5
-  jobStoreClass: org.quartz.simpl.RAMJobStore
-   # A comma separated list of XML files
-  jobFiles: job.xml

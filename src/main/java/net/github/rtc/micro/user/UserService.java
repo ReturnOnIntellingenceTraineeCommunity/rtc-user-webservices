@@ -47,7 +47,7 @@ public class UserService extends Application<MainServiceConfiguration> {
     @Override
     public void run(MainServiceConfiguration configuration, Environment environment) throws Exception {
 
-        final SchedulerFactory sf = new StdSchedulerFactory(configuration.getSchedulerFactoryProperties());
+        final SchedulerFactory sf = new StdSchedulerFactory();
 
         Injector injector = Guice.createInjector(new AbstractModule() {
             @Override
