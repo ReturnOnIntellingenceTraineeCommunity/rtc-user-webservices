@@ -10,17 +10,51 @@ import java.util.List;
  */
 public interface UserDao {
 
-    User getById(Integer id);
+    /**
+     * Get an existing user by id
+     *
+     * @param id user id
+     * @return user object
+     */
+     User get(Integer id);
 
-    User findByLogin(String email);
+    /**
+     * Find  user by email
+     *
+     * @param email user email
+     * @return user object
+     */
+     User findByEmail(String email);
 
-    User findByCode(String code);
+    /**
+     * Find user by code
+     *
+     * @param code user code
+     * @return user object
+     */
+     User findByCode(String code);
 
-    User save(User user);
+    /**
+     * Save a new user in the DB
+     *
+     * @param user user for save
+     * @return saved user
+     */
+     User save(User user);
 
-    void delete(String code);
+    /**
+     * Delete user by user code
+     *
+     * @param code user code
+     */
+     void delete(String code);
 
-    List<User> findAll();
+    /**
+     * Find collection of users in the DB
+     *
+     * @return collection of users
+     */
+     List<User> findAll();
 
     /**
      * Check user code exist
@@ -28,7 +62,7 @@ public interface UserDao {
      * @param code user code
      * @return true if exist, false - not exist
      */
-    boolean exist(String code);
+     boolean exist(String code);
 
     /**
      * SaveOrUpdate with merge associated entities
@@ -36,7 +70,12 @@ public interface UserDao {
      * @param user user object
      * @return user object with updated keys
      */
-    User merge(User user);
+     User merge(User user);
 
-    boolean isAdmin();
+    /**
+     * Check if admin exist in database
+     *
+     * @return true if exist, false - not exist
+     */
+     boolean isAdmin();
 }

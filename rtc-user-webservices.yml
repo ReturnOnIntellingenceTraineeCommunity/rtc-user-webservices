@@ -12,7 +12,7 @@ database:
   password: 1111
   url: jdbc:mysql://localhost/user?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
   properties:
-      hibernate.hbm2ddl.auto: create-drop
+      hibernate.hbm2ddl.auto: update
 
 logging:
 # Permit DEBUG, INFO, WARN and ERROR messages to be logged by appenders.

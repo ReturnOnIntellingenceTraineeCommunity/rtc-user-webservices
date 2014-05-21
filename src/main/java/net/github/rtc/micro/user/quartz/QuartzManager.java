@@ -1,7 +1,8 @@
-package net.github.rtc.micro.user.job;
+package net.github.rtc.micro.user.quartz;
 
 
 import io.dropwizard.lifecycle.Managed;
+import net.github.rtc.micro.user.GuiceJobFactory;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;

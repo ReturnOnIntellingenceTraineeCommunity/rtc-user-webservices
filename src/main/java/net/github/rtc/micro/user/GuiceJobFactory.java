@@ -1,4 +1,4 @@
-package net.github.rtc.micro.user.job;
+package net.github.rtc.micro.user;
 
 import com.google.inject.Injector;
 import org.quartz.Job;

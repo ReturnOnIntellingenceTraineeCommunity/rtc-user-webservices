@@ -23,12 +23,12 @@ public class UserDaoImpl implements UserDao {
     private Provider<EntityManager> entityManagerProvider;
 
     @Override
-    public User getById(Integer id) {
+    public User get(Integer id) {
         return entityManagerProvider.get().find(User.class, id);
     }
 
     @Override
-    public User findByLogin(String email) {
+    public User findByEmail(String email) {
         return (User) ((Session)entityManagerProvider.get().getDelegate()).
                 createCriteria(User.class).
                 add(Restrictions.eq("email", email)).uniqueResult();

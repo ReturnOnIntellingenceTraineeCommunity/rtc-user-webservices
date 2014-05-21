@@ -44,7 +44,7 @@ public class UserResource {
     @GET
     @Path("login/{email}")
     public User getLogin(@PathParam("email") String email) {
-        return userDao.findByLogin(email);
+        return userDao.findByEmail(email);
     }
 
     @POST

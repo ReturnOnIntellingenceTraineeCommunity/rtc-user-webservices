@@ -2,6 +2,7 @@ package net.github.rtc.micro.user.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.github.rtc.micro.user.annotations.ForReport;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -26,42 +27,58 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
+    @ForReport
     private Integer id;
 
+    @ForReport
     private String code;
 
     @NotEmpty
+    @ForReport
     private String surname;
 
     @NotEmpty
+    @ForReport
     private String name;
 
     @NotEmpty
+    @ForReport
     private String middleName;
-
-    @NotEmpty
-    private String phone;
-
-    @NotEmpty
-    private String email;
 
     @NotNull
     @Temporal(value = TemporalType.DATE)
+    @ForReport
     private Date birthDate;
 
     @NotEmpty
+    @ForReport
+    private String phone;
+
+    @NotEmpty
+    @ForReport
+    private String email;
+
+    @NotEmpty
+    @ForReport
     private String city;
 
     @NotEmpty
+    @ForReport
     private String university;
 
     @NotEmpty
+    @ForReport
     private String faculty;
 
     @NotEmpty
+    @ForReport
     private String speciality;
 
+    @ForReport
+    private String english;
+
     @NotEmpty
+    @ForReport
     private String note;
 
     @NotEmpty
@@ -71,7 +88,6 @@ public class User implements Serializable {
 
     private String progLanguages;
 
-    private String english;
 
     /* Spring Security fields*/
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
