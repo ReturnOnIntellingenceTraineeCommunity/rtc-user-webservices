@@ -6,14 +6,18 @@ import com.google.inject.Injector;
 import com.google.inject.persist.PersistFilter;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import io.dropwizard.Application;
+import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import net.github.rtc.micro.user.config.MainServiceConfiguration;
 import net.github.rtc.micro.user.dao.UserDao;
 import net.github.rtc.micro.user.dao.impl.UserDaoImpl;
+import net.github.rtc.micro.user.entity.Role;
+import net.github.rtc.micro.user.entity.User;
 import net.github.rtc.micro.user.quartz.QuartzHealthCheck;
 import net.github.rtc.micro.user.quartz.QuartzManager;
 import net.github.rtc.micro.user.resource.UserResource;
@@ -29,6 +33,15 @@ import java.util.Properties;
  */
 public class UserService extends Application<MainServiceConfiguration> {
 
+
+    private final HibernateBundle<MainServiceConfiguration>
+            hibernate = new HibernateBundle<MainServiceConfiguration>(Role.class,User.class) {
+        @Override
+        public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
+            return configuration.getDatabase();
+        }
+    };
+
     public static void main(String[] args) throws Exception {
         new UserService().run(args);
     }
@@ -36,6 +49,7 @@ public class UserService extends Application<MainServiceConfiguration> {
     @Override
     public void initialize(Bootstrap<MainServiceConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
+        bootstrap.addBundle((ConfiguredBundle) hibernate);
         bootstrap.addBundle(new MigrationsBundle<MainServiceConfiguration>() {
         @Override
         public DataSourceFactory getDataSourceFactory(MainServiceConfiguration configuration) {
