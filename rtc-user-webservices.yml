@@ -8,8 +8,8 @@ server:
 
 database:
   driverClass: com.mysql.jdbc.Driver
-  user: root
-  password: 1111
+  user: rtc_user_reg
+  password: register
   url: jdbc:mysql://localhost/user?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false
   properties:
       hibernate.hbm2ddl.auto: update
