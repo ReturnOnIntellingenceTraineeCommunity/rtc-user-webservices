@@ -23,11 +23,13 @@ public class UserDaoImpl implements UserDao {
     private Provider<EntityManager> entityManagerProvider;
 
     @Override
+    @Transactional
     public User get(Integer id) {
         return entityManagerProvider.get().find(User.class, id);
     }
 
     @Override
+    @Transactional
     public User findByEmail(String email) {
         return (User) ((Session)entityManagerProvider.get().getDelegate()).
                 createCriteria(User.class).
@@ -35,6 +37,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public User findByCode(String code) {
         return (User) ((Session)entityManagerProvider.get().getDelegate()).createCriteria(User.class)
                 .add(Restrictions.eq("code", code)).uniqueResult();
@@ -48,6 +51,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public void delete(String code) {
         User user = findByCode(code);
         if (user != null) {
@@ -62,12 +66,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public boolean exist(String code) {
         return ((Long) entityManagerProvider.get().createQuery("select count(*) from User u where u.code = :code")
                 .setParameter("code", code).getSingleResult()) != 0;
     }
 
     @Override
+    @Transactional
     public boolean isAdmin() {
         return ((Long)((Session)entityManagerProvider.get().getDelegate()).createCriteria(User.class).setFetchMode("authorities", FetchMode.SELECT)
                 .createAlias("authorities", "authorities").add(Restrictions.disjunction()
@@ -77,6 +83,7 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
+    @Transactional
     public User merge(User user) {
         entityManagerProvider.get().merge(user);
         return user;
