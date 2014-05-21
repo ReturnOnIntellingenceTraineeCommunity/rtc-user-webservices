@@ -30,8 +30,6 @@ public class UserExportJob implements Job {
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
         List<User> userList = userDao.findAll();
-
-        System.out.println(userList);
         //Export logic here
         Workbook wb = new HSSFWorkbook();
         Sheet sheet = wb.createSheet("users");
