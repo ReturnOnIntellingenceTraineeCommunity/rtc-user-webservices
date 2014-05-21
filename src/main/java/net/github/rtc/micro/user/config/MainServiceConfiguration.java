@@ -6,7 +6,6 @@ import io.dropwizard.db.DataSourceFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 
 
 public class MainServiceConfiguration extends Configuration {
@@ -19,8 +18,4 @@ public class MainServiceConfiguration extends Configuration {
     @NotNull
     @JsonProperty
     private DataSourceFactory database = new DataSourceFactory();
-
-    @Valid
-    @JsonProperty
-    private HashMap<String,String> quartzSettings = new HashMap<String, String>();
 }
