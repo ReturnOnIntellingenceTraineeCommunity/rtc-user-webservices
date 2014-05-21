@@ -2,3 +2,4 @@
 
 if [ -f /var/log/upstart/rtc-user-webservices.log ]; then
     rm -f /var/log/upstart/rtc-user-webservices.log
+fi
